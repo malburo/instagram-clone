@@ -1,0 +1,15 @@
+.header {
+  border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  height: 54px;
+  position: fixed;
+  min-width: 100vw;
+  background-color: #fff;
+  z-index: 999;
+}
+.header h3 {
+  margin: 0;
+}
+
+.logout {
+  cursor: pointer;
+}
