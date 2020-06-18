@@ -1,0 +1,17 @@
+.reset-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__nav {
+    width: 350px;
+    padding: 10px 40px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: rgb(250, 250, 250);
+
+    text-align: center;
+    font-size: 14px;
+  }
+}
