@@ -1,0 +1,17 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__nav {
+    width: 350px;
+    padding: 20px 40px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+
+    text-align: center;
+    font-size: 14px;
+    background-color: #fff;
+  }
+}
