@@ -1,7 +1,7 @@
+import { ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { FormGroup, Input, Label, FormFeedback } from 'reactstrap';
-import { ErrorMessage } from 'formik';
+import { FormFeedback, FormGroup, Input } from 'reactstrap';
 
 UploadFiled.propTypes = {
   field: PropTypes.object.isRequired,

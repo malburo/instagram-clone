@@ -1,22 +1,21 @@
-import React from 'react';
-import styles from './style.module.scss';
 import InputField from 'custom-field/InputField';
-import PropTypes from 'prop-types';
-import { FastField, Formik, Form } from 'formik';
+import UploadFiled from 'custom-field/UploadField';
+import { FastField, Form, Formik } from 'formik';
+import React from 'react';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
-import UploadFiled from 'custom-field/UploadField';
+import styles from './style.module.scss';
 
 PostForm.propTypes = {};
 
 function PostForm(props) {
   const { onSubmit, postId } = props;
   const initialValues = {
-    comment: '',
+    caption: '',
     file: null,
   };
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required('This field is required.'),
+    caption: Yup.string().required('This field is required.'),
   });
   const handleSubmit = postId => {
     if (onSubmit) {
@@ -37,7 +36,11 @@ function PostForm(props) {
           />
           <FastField type="file" name="file" component={UploadFiled} />
           <FormGroup>
-            <Button type="submit" color="primary" className={styles.button}>
+            <Button
+              type="submit"
+              color="primary"
+              className={styles.button}
+              block>
               {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
             </Button>
           </FormGroup>
