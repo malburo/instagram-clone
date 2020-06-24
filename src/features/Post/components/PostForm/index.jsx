@@ -5,19 +5,15 @@ import PropTypes from 'prop-types';
 import { FastField, Formik, Form } from 'formik';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
+import UploadFiled from 'custom-field/UploadField';
 
-CommentForm.propTypes = {
-  onSubmit: PropTypes.func,
-  postId: PropTypes.string.isRequired,
-};
+PostForm.propTypes = {};
 
-CommentForm.defaultProps = {
-  onSubmit: null,
-};
-function CommentForm(props) {
+function PostForm(props) {
   const { onSubmit, postId } = props;
   const initialValues = {
     comment: '',
+    file: null,
   };
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('This field is required.'),
@@ -33,24 +29,22 @@ function CommentForm(props) {
       onSubmit={() => handleSubmit(postId)}
       validationSchema={validationSchema}>
       {({ isSubmitting }) => (
-        <Form className={styles['comment-form']}>
-          <div className={styles['comment-form__comment']}>
-            <FastField
-              name="comment"
-              component={InputField}
-              placeholder="Thêm bình luận..."
-            />
-          </div>
-          <div className={styles['comment-form__button']}>
-            <FormGroup>
-              <Button type="submit" color="secondary">
-                {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
-              </Button>
-            </FormGroup>
-          </div>
+        <Form className={styles['post-form']}>
+          <FastField
+            name="caption"
+            component={InputField}
+            placeholder="Bạn đang nghĩ gì vậy ?"
+          />
+          <FastField type="file" name="file" component={UploadFiled} />
+          <FormGroup>
+            <Button type="submit" color="primary" className={styles.button}>
+              {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
+            </Button>
+          </FormGroup>
         </Form>
       )}
     </Formik>
   );
 }
-export default CommentForm;
+
+export default PostForm;

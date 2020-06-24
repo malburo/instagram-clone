@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  &__image {
+  &__image img {
     width: 600px;
     height: 600px;
     object-fit: cover;
@@ -20,6 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 20px;
       &__left {
       }
       &__right {

@@ -1,9 +1,8 @@
+import PostList from 'features/Post/components/PostList';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
-import PostList from 'features/Post/components/PostList';
-
+import PostForm from 'features/Post/components/PostForm';
 
 NewfeedPage.propTypes = {};
 
@@ -11,7 +10,9 @@ function NewfeedPage(props) {
   return (
     <Container style={{ paddingTop: 100 }}>
       <Row>
-        <Col>{/* <PostForm /> */}</Col>
+        <Col>
+          <PostForm />
+        </Col>
       </Row>
       <Row>
         <Col>

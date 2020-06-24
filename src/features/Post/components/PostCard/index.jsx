@@ -21,13 +21,21 @@ PostCard.propTypes = {
 PostCard.defaultProps = {
   likes: [],
   comments: [],
+  avatarPictureUrl:
+    'https://noidangsong.vn/files/uploads/fb1735058496563345/1526444239-tt_avatar_small.jpg',
+  postPictureUrl: 'https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg',
 };
 function PostCard(props) {
   const { likes, comments, avatarPictureUrl, postPictureUrl, username } = props;
   return (
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
-        <Avatar img={avatarPictureUrl} size="small" username={username} />
+        <Avatar
+          img={avatarPictureUrl}
+          size="small"
+          username={username}
+          className={styles.avatar}
+        />
         <DotIcon />
       </div>
       <div className={styles['post-card__image']}>
