@@ -1,0 +1,33 @@
+.post-card {
+  width: 600px;
+  border: 1px solid #efefef;
+  margin-bottom: 50px;
+  background-color: #fff;
+  &__header {
+    margin: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__image {
+    width: 600px;
+    height: 600px;
+    object-fit: cover;
+  }
+  &__footer {
+    margin: 16px;
+    .list-icon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &__left {
+      }
+      &__right {
+      }
+    }
+  }
+}
+
+.icon-footer {
+  margin: 0 10px;
+}

@@ -10,14 +10,14 @@ import PublicRoute from './publicRoute';
 import MainLayout from 'components/Layouts/MainLayout';
 
 const Auth = React.lazy(() => import('features/Auth'));
-
+const Post = React.lazy(() => import('features/Post'));
 function Routes() {
   return (
     <BrowserRouter>
       <Suspense fallback={<div>Loading ...</div>}>
         <Switch>
           <PublicRoute path="/auth" component={Auth} layout={BlankLayout} />
-          <PublicRoute path="/" component={Auth} layout={MainLayout} />
+          <PublicRoute path="/" component={Post} layout={MainLayout} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

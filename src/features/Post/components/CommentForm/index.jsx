@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './style.module.scss';
 import InputField from 'custom-field/InputField';
-import PropTypes from 'prop-type';
+import PropTypes from 'prop-types';
 import { FastField, Formik, Form } from 'formik';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';

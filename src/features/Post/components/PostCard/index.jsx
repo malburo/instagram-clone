@@ -9,9 +9,8 @@ import {
   SaveIcon,
   DotIcon,
 } from 'components/Icon';
-import Comment from '../Comment';
 import CommentForm from '../CommentForm';
-
+import Comment from '../Comment';
 PostCard.propTypes = {
   likes: PropTypes.array,
   comments: PropTypes.array,
@@ -26,7 +25,7 @@ PostCard.defaultProps = {
 function PostCard(props) {
   const { likes, comments, avatarPictureUrl, postPictureUrl, username } = props;
   return (
-    <div className={styles['post-card']}>
+    <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
         <Avatar img={avatarPictureUrl} size="small" username={username} />
         <DotIcon />
@@ -37,9 +36,15 @@ function PostCard(props) {
       <div className={styles['post-card__footer']}>
         <div className={styles['list-icon']}>
           <div className={styles['list-icon__left']}>
-            <LikeIcon />
-            <CommentIcon />
-            <MessageIcon />
+            <span className={styles['icon-footer']}>
+              <LikeIcon />
+            </span>
+            <span className={styles['icon-footer']}>
+              <CommentIcon />
+            </span>
+            <span className={styles['icon-footer']}>
+              <MessageIcon />
+            </span>
           </div>
           <div className={styles['list-icon__right']}>
             <SaveIcon />
