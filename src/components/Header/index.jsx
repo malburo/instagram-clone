@@ -4,7 +4,6 @@ import styles from './style.module.scss';
 import Avatar from 'components/Avatar';
 
 const Header = props => {
-  const { avatarPictureUrl } = props;
   return (
     <header
       className={`${styles.header} d-flex align-items-center justify-content-between`}>

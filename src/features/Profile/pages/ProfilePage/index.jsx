@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import PostCardImageList from 'features/Profile/components/PostCardImageList';
-import { Container, Row, Col } from 'reactstrap';
-import PostForm from 'features/Post/components/PostForm';
 import Avatar from 'components/Avatar';
-import styles from './style.module.scss';
 import { SettingIcon } from 'components/Icon';
+import PostCardImageList from 'features/Profile/components/PostCardImageList';
+import React from 'react';
+import { Col, Container, Row } from 'reactstrap';
+import styles from './style.module.scss';
 ProfilePage.propTypes = {};
 ProfilePage.defaultProps = {
   avatarPictureUrl:

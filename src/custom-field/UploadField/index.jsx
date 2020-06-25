@@ -18,10 +18,10 @@ UploadFiled.defaultProps = {
 };
 
 function UploadFiled(props) {
-  const { field, form, type, label, placeholder, disabled } = props;
+  const { field, form, type, disabled } = props;
   const { name } = field;
-  const { errors, touched, setFieldValue } = form;
-  const showError = errors[name] && touched[name];
+  const { errors, setFieldValue } = form;
+  const showError = errors[name];
 
   return (
     <FormGroup>
@@ -32,6 +32,7 @@ function UploadFiled(props) {
         }}
         type={type}
         disabled={disabled}
+        invalid={showError}
       />
       <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>

@@ -15,6 +15,7 @@ function LoginPage(props) {
     try {
       const response = await API.call('post', 'auth/login', currentUser);
       localStorage.setItem('jwtToken', response.accessToken);
+      API.setToken(response.accessToken);
       dispatch(loginSuccess(response.user));
       history.push('/');
     } catch (e) {
