@@ -32,7 +32,9 @@ function ProfilePage(props) {
       </Row>
       <Row>
         <Col>
-          <PostCardImageList />
+          <div className={styles.list}>
+            <PostCardImageList />
+          </div>
         </Col>
       </Row>
     </Container>

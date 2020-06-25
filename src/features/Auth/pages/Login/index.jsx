@@ -2,12 +2,24 @@ import LoginForm from 'features/Auth/components/LoginForm';
 import React from 'react';
 import styles from './style.module.scss';
 import { Container, Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { loginSuccess } from 'features/Auth/AuthSlice';
+import { useDispatch } from 'react-redux';
+import API from 'utils/API';
 LoginPage.propTypes = {};
 
 function LoginPage(props) {
-  const handleSubmit = values => {
-    console.log(values);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleSubmit = async (currentUser, actions) => {
+    try {
+      const response = await API.call('post', 'auth/login', currentUser);
+      localStorage.setItem('jwtToken', response.accessToken);
+      dispatch(loginSuccess(response.user));
+      history.push('/');
+    } catch (e) {
+      actions.setErrors({ ...e.response.data });
+    }
   };
   return (
     <Container fluid>

@@ -3,11 +3,19 @@ import styles from './style.module.scss';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterForm from 'features/Auth/components/RegisterForm';
+import API from 'utils/API';
 RegisterPage.propTypes = {};
 
 function RegisterPage(props) {
-  const handleSubmit = values => {
-    console.log(values);
+  const handleSubmit = async (user, actions) => {
+    try {
+      await API.call('post', 'auth/register', user);
+      actions.setStatus({ isSuccess: true, message: 'Register success !' });
+      actions.resetForm();
+    } catch (e) {
+      actions.setErrors({ ...e.response.data });
+      actions.setStatus({ isSuccess: false, message: 'Register failed !' });
+    }
   };
   return (
     <Container fluid>

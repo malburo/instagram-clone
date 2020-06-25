@@ -15,13 +15,13 @@ const RegisterForm = props => {
   const validationSchema = Yup.object().shape({
     fullname: Yup.string()
       .required('This field is required.')
-      .min(1, 'Your fullname is too short'),
+      .min(2, 'Your fullname is too short'),
     username: Yup.string()
       .required('This field is required.')
-      .min(3, 'Your username is too short'),
+      .min(6, 'Your username is too short'),
     email: Yup.string()
       .required('This field is required.')
-      .min(3, 'Your email is too short'),
+      .min(6, 'Your email is too short'),
     password: Yup.string()
       .required('Require password')
       .min(6, 'Your password is too short'),

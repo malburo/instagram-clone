@@ -17,12 +17,7 @@ function Routes() {
     <BrowserRouter>
       <Suspense fallback={<div>Loading ...</div>}>
         <Switch>
-          <PublicRoute
-            exact
-            path="/auth"
-            component={Auth}
-            layout={BlankLayout}
-          />
+          <PublicRoute path="/auth" component={Auth} layout={BlankLayout} />
           <PublicRoute
             exact
             path="/:username"

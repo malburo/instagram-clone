@@ -24,18 +24,21 @@ PostCard.defaultProps = {
   avatarPictureUrl:
     'https://noidangsong.vn/files/uploads/fb1735058496563345/1526444239-tt_avatar_small.jpg',
   postPictureUrl: 'https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg',
+  username: 'thegioicuabao',
 };
 function PostCard(props) {
   const { likes, comments, avatarPictureUrl, postPictureUrl, username } = props;
   return (
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
-        <Avatar
-          img={avatarPictureUrl}
-          size="small"
-          username={username}
-          className={styles.avatar}
-        />
+        <div className={styles.infoUser}>
+          <Avatar
+            img={avatarPictureUrl}
+            size="small"
+            className={styles.avatar}
+          />
+          <a href="#">{username}</a>
+        </div>
         <DotIcon />
       </div>
       <div className={styles['post-card__image']}>
