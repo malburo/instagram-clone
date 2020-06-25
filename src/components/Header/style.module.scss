@@ -5,11 +5,17 @@
   min-width: 100vw;
   background-color: #fff;
   z-index: 999;
+  .search input {
+    background-color: #fafafa;
+    border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    color: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    font-size: 14px;
+    padding: 3px 20px;
+  }
+  .search input:focus {
+    outline: none !important;
+  }
 }
 .header h3 {
   margin: 0;
-}
-
-.logout {
-  cursor: pointer;
 }
