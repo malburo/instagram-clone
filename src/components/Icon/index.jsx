@@ -49,3 +49,13 @@ export function DotIcon(props) {
     />
   );
 }
+
+export function SettingIcon(props) {
+  return (
+    <img
+      src="https://image.flaticon.com/icons/svg/929/929577.svg"
+      alt="SettingIcon"
+      className={styles.icon}
+    />
+  );
+}
