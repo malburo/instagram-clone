@@ -1,14 +1,25 @@
 import React from 'react';
 import PostCard from '../PostCard';
+import { useSelector } from 'react-redux';
 
 PostList.propTypes = {};
 
 function PostList(props) {
-  return (
-    <div>
-      <PostCard />
-    </div>
-  );
+  const posts = useSelector(state => state.posts);
+  const postsList = posts.map(post => {
+    const { userId, postPictureUrl, caption, likes, comments } = post;
+    return (
+      <PostCard
+        profilePictureUrl={userId.profilePictureUrl}
+        username={userId.username}
+        postPictureUrl={postPictureUrl}
+        caption={caption}
+        likes={likes}
+        comments={comments}
+      />
+    );
+  });
+  return <div>{postsList}</div>;
 }
 
 export default PostList;

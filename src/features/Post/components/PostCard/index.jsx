@@ -11,33 +11,36 @@ import {
 } from 'components/Icon';
 import CommentForm from '../CommentForm';
 import Comment from '../Comment';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 PostCard.propTypes = {
   likes: PropTypes.array,
   comments: PropTypes.array,
-  avatarPictureUrl: PropTypes.string.isRequired,
+  profilePictureUrl: PropTypes.string.isRequired,
   postPictureUrl: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
 };
 PostCard.defaultProps = {
   likes: [],
   comments: [],
-  avatarPictureUrl:
-    'https://noidangsong.vn/files/uploads/fb1735058496563345/1526444239-tt_avatar_small.jpg',
-  postPictureUrl: 'https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg',
-  username: 'thegioicuabao',
 };
 function PostCard(props) {
-  const { likes, comments, avatarPictureUrl, postPictureUrl, username } = props;
+  const {
+    likes,
+    comments,
+    profilePictureUrl,
+    postPictureUrl,
+    username,
+  } = props;
   return (
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
         <div className={styles.infoUser}>
           <Avatar
-            img={avatarPictureUrl}
+            img={profilePictureUrl}
             size="small"
             className={styles.avatar}
           />
-          <a href="#">{username}</a>
+          <Link to={username}>{username}</Link>
         </div>
         <DotIcon />
       </div>

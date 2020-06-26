@@ -1,23 +1,30 @@
 import PostList from 'features/Post/components/PostList';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
 import PostForm from 'features/Post/components/PostForm';
 import { useDispatch } from 'react-redux';
 import API from 'utils/API';
-import { createBook } from 'features/Post/PostSlice';
+import { setPost, createPost } from 'features/Post/PostSlice';
 
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
   const dispatch = useDispatch();
+  useEffect(() => {
+    async function fetchData() {
+      const response = await API.call('get', 'posts');
+      dispatch(setPost(response.posts));
+    }
+    fetchData();
+  }, []);
   const handleSubmitPostForm = async (newPost, actions) => {
     try {
       let formData = new FormData();
       formData.append('caption', newPost.caption);
       formData.append('postImage', newPost.file);
       const response = await API.call('post', 'posts/create', formData);
-      dispatch(createBook(response.newPost));
+      dispatch(createPost(response.newPost));
       actions.resetForm();
     } catch (e) {
       console.log('Tạo bài viết không thành công');
