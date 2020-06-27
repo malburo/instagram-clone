@@ -1,11 +1,18 @@
 import React from 'react';
 import styles from './style.module.scss';
+
 export function LikeIcon(props) {
+  const { isLiked, handleLike, postId } = props;
   return (
     <img
-      src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
+      src={
+        isLiked
+          ? 'https://image.flaticon.com/icons/svg/1076/1076984.svg'
+          : 'https://image.flaticon.com/icons/svg/1077/1077035.svg'
+      }
       alt="LikeIcon"
       className={styles.icon}
+      onClick={() => handleLike(postId)}
     />
   );
 }

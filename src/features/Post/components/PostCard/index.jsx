@@ -12,7 +12,11 @@ import {
 import CommentForm from '../CommentForm';
 import Comment from '../Comment';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch, useSelector } from 'react-redux';
+import API from 'utils/API';
+import { like, unlike } from 'features/Post/PostSlice';
 PostCard.propTypes = {
+  isLiked: PropTypes.bool,
   likes: PropTypes.array,
   comments: PropTypes.array,
   profilePictureUrl: PropTypes.string.isRequired,
@@ -22,6 +26,7 @@ PostCard.propTypes = {
 PostCard.defaultProps = {
   likes: [],
   comments: [],
+  isLiked: false,
 };
 function PostCard(props) {
   const {
@@ -30,7 +35,28 @@ function PostCard(props) {
     profilePictureUrl,
     postPictureUrl,
     username,
+    postId,
   } = props;
+  const dispatch = useDispatch();
+  const userId = useSelector(state => state.auth.user._id);
+  const isLiked = likes.find(item => item.userId === userId);
+  const handleLike = postId => {
+    async function fetchData() {
+      const data = { postId };
+      try {
+        if (!isLiked) {
+          const response = await API.call('post', 'likes/like', data);
+          dispatch(like(response.like));
+        } else {
+          const response = await API.call('post', 'likes/unlike', data);
+          dispatch(unlike(response.data));
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  };
   return (
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
@@ -51,7 +77,11 @@ function PostCard(props) {
         <div className={styles['list-icon']}>
           <div className={styles['list-icon__left']}>
             <span className={styles['icon-footer']}>
-              <LikeIcon />
+              <LikeIcon
+                isLiked={!!isLiked}
+                postId={postId}
+                handleLike={handleLike}
+              />
             </span>
             <span className={styles['icon-footer']}>
               <CommentIcon />
@@ -77,7 +107,7 @@ function PostCard(props) {
             );
           })}
         </div>
-        <CommentForm />
+        {/* <CommentForm /> */}
       </div>
     </div>
   );
