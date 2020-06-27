@@ -12,7 +12,6 @@ function PostList(props) {
       <PostCard
         key={_id}
         postId={_id}
-        userId={userId._id}
         profilePictureUrl={userId.profilePictureUrl}
         username={userId.username}
         postPictureUrl={postPictureUrl}

@@ -17,7 +17,7 @@ function NewfeedPage(props) {
       dispatch(setPost(response.posts));
     }
     fetchData();
-  }, []);
+  }, [dispatch]);
   const handleSubmitPostForm = async (newPost, actions) => {
     try {
       let formData = new FormData();

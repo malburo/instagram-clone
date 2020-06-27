@@ -14,7 +14,7 @@ import Comment from '../Comment';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import API from 'utils/API';
-import { like, unlike } from 'features/Post/PostSlice';
+import { like, unlike, setComment } from 'features/Post/PostSlice';
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
   likes: PropTypes.array,
@@ -51,6 +51,20 @@ function PostCard(props) {
           const response = await API.call('post', 'likes/unlike', data);
           dispatch(unlike(response.data));
         }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  };
+  const handleComment = (postId, content, actions) => {
+    async function fetchData() {
+      const { comment } = content;
+      const data = { postId, comment };
+      try {
+        const response = await API.call('post', 'comments/create', data);
+        dispatch(setComment(response.data));
+        actions.resetForm();
       } catch (e) {
         console.log(e);
       }
@@ -103,11 +117,12 @@ function PostCard(props) {
               <Comment
                 username={comment.userId.username}
                 content={comment.content}
+                key={comment._id}
               />
             );
           })}
         </div>
-        {/* <CommentForm /> */}
+        <CommentForm postId={postId} onSubmit={handleComment} />
       </div>
     </div>
   );

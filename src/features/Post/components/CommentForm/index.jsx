@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './style.module.scss';
-import InputField from 'custom-field/InputField';
 import PropTypes from 'prop-types';
 import { FastField, Formik, Form } from 'formik';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
+import CommentInputField from 'custom-field/CommentInputField';
 
 CommentForm.propTypes = {
   onSubmit: PropTypes.func,
@@ -20,36 +20,42 @@ function CommentForm(props) {
     comment: '',
   };
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required('This field is required.'),
+    comment: Yup.string().required('This field is required.'),
   });
-  const handleSubmit = postId => {
+  const handleSubmit = (comment, actions) => {
     if (onSubmit) {
-      onSubmit(postId);
+      onSubmit(postId, comment, actions);
     }
   };
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={() => handleSubmit(postId)}
+      onSubmit={handleSubmit}
       validationSchema={validationSchema}>
-      {({ isSubmitting }) => (
-        <Form className={styles['comment-form']}>
-          <div className={styles['comment-form__comment']}>
-            <FastField
-              name="comment"
-              component={InputField}
-              placeholder="Thêm bình luận..."
-            />
-          </div>
-          <div className={styles['comment-form__button']}>
-            <FormGroup>
-              <Button type="submit" color="secondary">
-                {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
-              </Button>
-            </FormGroup>
-          </div>
-        </Form>
-      )}
+      {formik => {
+        const { isSubmitting, errors, values } = formik;
+        return (
+          <Form className={styles['comment-form']}>
+            <div className={styles['comment-form__comment']}>
+              <FastField
+                name="comment"
+                component={CommentInputField}
+                placeholder="Thêm bình luận..."
+              />
+            </div>
+            <div className={styles['comment-form__button']}>
+              <FormGroup>
+                <Button
+                  type="submit"
+                  color="secondary"
+                  disabled={values.comment === '' || errors.comment}>
+                  {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
+                </Button>
+              </FormGroup>
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

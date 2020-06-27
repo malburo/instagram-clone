@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import PostCardImage from '../PostCardImage';
 import { Col, Row } from 'reactstrap';
+import PostCardImage from '../PostCardImage';
 import styles from './style.module.scss';
 PostCardImageList.propTypes = {};
 
