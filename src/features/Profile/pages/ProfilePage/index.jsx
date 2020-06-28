@@ -8,6 +8,7 @@ import {
 import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
 import styles from './style.module.scss';
+import Footer from 'components/Footer';
 const PostCardImageList = React.lazy(() =>
   import('features/Profile/components/PostCardImageList')
 );
@@ -32,21 +33,24 @@ function ProfilePage(props) {
     fetchData();
   }, []);
   return (
-    <Container style={{ paddingTop: 100 }}>
-      <Row>
-        <Col>
-          <InfoCard />
-        </Col>
-      </Row>
-      <hr />
-      <Row>
-        <Col>
-          <div className={styles.list}>
-            <PostCardImageList />
-          </div>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      <Container style={{ paddingTop: 100 }}>
+        <Row>
+          <Col>
+            <InfoCard />
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
+            <div className={styles.list}>
+              <PostCardImageList />
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
   );
 }
 

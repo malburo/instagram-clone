@@ -1,0 +1,26 @@
+.footer {
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    margin-bottom: 10px;
+    li {
+      p {
+        font-size: 13px;
+        font-weight: 600;
+        color: #0958a2;
+        cursor: pointer;
+        margin: 0;
+      }
+    }
+  }
+  .malburo {
+    p {
+      font-size: 12px;
+      font-weight: 600;
+      color: #8e8e8e;
+    }
+  }
+}
