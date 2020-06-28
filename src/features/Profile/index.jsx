@@ -13,7 +13,7 @@ function Profile(props) {
   const match = useRouteMatch();
   return (
     <Switch>
-      <Route exact path={match.url} component={ProfilePage} />
+      <Route exact path={match.path} component={ProfilePage} />
       <Route component={NotFound} />
     </Switch>
   );

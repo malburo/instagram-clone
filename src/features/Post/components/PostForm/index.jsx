@@ -2,7 +2,7 @@ import InputField from 'custom-field/InputField';
 import UploadFiled from 'custom-field/UploadField';
 import PropTypes from 'prop-types';
 import { FastField, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
 import styles from './style.module.scss';
@@ -18,17 +18,23 @@ function PostForm(props) {
     file: null,
   };
   const validationSchema = Yup.object().shape({
-    caption: Yup.string().required('This field is required.'),
+    caption: Yup.string(),
     file: Yup.mixed().required('This field is required.'),
   });
+  const [fileInputKey, setFileInputKey] = useState('');
+  const handleSubmit = (newPost, actions) => {
+    if (onSubmit) {
+      setFileInputKey(Date.now());
+      onSubmit(newPost, actions);
+    }
+  };
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       validationSchema={validationSchema}>
       {formik => {
-        const { isSubmitting, values } = formik;
-        const fileInputKey = values.caption || Math.random();
+        const { isSubmitting, values, errors } = formik;
         return (
           <Form className={styles['post-form']}>
             <FastField
@@ -47,6 +53,7 @@ function PostForm(props) {
                 type="submit"
                 color="primary"
                 className={styles.button}
+                disabled={values.file === null || errors.file}
                 block>
                 {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
               </Button>

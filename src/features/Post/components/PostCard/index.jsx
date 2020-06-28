@@ -36,6 +36,7 @@ function PostCard(props) {
     postPictureUrl,
     username,
     postId,
+    caption,
   } = props;
   const dispatch = useDispatch();
   const userId = useSelector(state => state.auth.user._id);
@@ -112,6 +113,9 @@ function PostCard(props) {
           {likes.length > 0 && <span>{likes.length} lượt thích</span>}
         </div>
         <div>
+          {caption !== '' && (
+            <Comment username={username} content={caption} key="caption" />
+          )}
           {comments.map(comment => {
             return (
               <Comment

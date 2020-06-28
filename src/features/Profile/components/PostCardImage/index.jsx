@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './style.module.scss';
-PostCardImage.propTypes = {};
+
+PostCardImage.propTypes = {
+  postPictureUrl: PropTypes.string.isRequired,
+};
 
 function PostCardImage(props) {
+  const { postPictureUrl } = props;
   return (
     <div className={styles.card}>
-      <img src="https://i.ytimg.com/vi/MPV2METPeJU/maxresdefault.jpg" alt="" />
+      <img src={postPictureUrl} alt="" />
     </div>
   );
 }

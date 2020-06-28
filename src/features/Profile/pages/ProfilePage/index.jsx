@@ -1,33 +1,44 @@
-import Avatar from 'components/Avatar';
-import { SettingIcon } from 'components/Icon';
-import PostCardImageList from 'features/Profile/components/PostCardImageList';
-import React from 'react';
+import { setPosts } from 'features/Profile/ProfileSlice';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  useHistory,
+  useParams,
+} from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
+import API from 'utils/API';
 import styles from './style.module.scss';
+const PostCardImageList = React.lazy(() =>
+  import('features/Profile/components/PostCardImageList')
+);
+const InfoCard = React.lazy(() =>
+  import('features/Profile/components/InfoCard')
+);
 ProfilePage.propTypes = {};
-ProfilePage.defaultProps = {
-  avatarPictureUrl:
-    'https://noidangsong.vn/files/uploads/fb1735058496563345/1526444239-tt_avatar_small.jpg',
-};
 function ProfilePage(props) {
-  const { avatarPictureUrl, username } = props;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { username } = useParams();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await API.call('get', `profile/${username}/posts`);
+        dispatch(setPosts(response.profile));
+      } catch (e) {
+        console.log('error:', e);
+        history.push('/404');
+      }
+    }
+    fetchData();
+  }, []);
   return (
     <Container style={{ paddingTop: 100 }}>
       <Row>
-        <Col className={styles.wrapper}>
-          <div className={styles.avatar}>
-            <Avatar img={avatarPictureUrl} username={username} />
-          </div>
-          <div className={styles.info}>
-            <div className={styles.name}>
-              <p>Tong quoc bao</p>
-            </div>
-            <div className={styles.icon}>
-              <SettingIcon />
-            </div>
-          </div>
+        <Col>
+          <InfoCard />
         </Col>
       </Row>
+      <hr />
       <Row>
         <Col>
           <div className={styles.list}>
