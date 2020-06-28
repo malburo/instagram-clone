@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Row, Col } from 'reactstrap';
+import { Col, Container, Row } from 'reactstrap';
 import styles from './style.module.scss';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 Footer.propTypes = {};
 
 function Footer(props) {
@@ -12,41 +12,41 @@ function Footer(props) {
           <div className={styles.footer}>
             <ul>
               <li>
-                <p>GIỚI THIỆU</p>
+                <Link>GIỚI THIỆU</Link>
               </li>
               <li>
-                <p>TRỢ GIÚP</p>
+                <Link>TRỢ GIÚP</Link>
               </li>
               <li>
-                <p>BÁO CHÍ</p>
+                <Link>BÁO CHÍ</Link>
               </li>
               <li>
-                <p>API</p>
+                <Link>API</Link>
               </li>
               <li>
-                <p>VIỆC LÀM</p>
+                <Link>VIỆC LÀM</Link>
               </li>
               <li>
-                <p>QUYỀN RIÊNG TƯ</p>
+                <Link>QUYỀN RIÊNG TƯ</Link>
               </li>
               <li>
-                <p>ĐIỀU KHOẢN</p>
+                <Link>ĐIỀU KHOẢN</Link>
               </li>
               <li>
-                <p>VỊ TRÍ</p>
+                <Link>VỊ TRÍ</Link>
               </li>
               <li>
-                <p>TÀI KHOẢN LIÊN QUAN NHẤT</p>
+                <Link>TÀI KHOẢN LIÊN QUAN NHẤT</Link>
               </li>
               <li>
-                <p>HASHTAG</p>
+                <Link>HASHTAG</Link>
               </li>
               <li>
-                <p>NGÔN NGỮ</p>
+                <Link>NGÔN NGỮ</Link>
               </li>
             </ul>
             <div className={styles.malburo}>
-              <p>© 2020 INSTAGRAM FROM MALBURO</p>
+              <p>© 2020 INSTAGRAM CLONE FROM MALBURO</p>
             </div>
           </div>
         </Col>

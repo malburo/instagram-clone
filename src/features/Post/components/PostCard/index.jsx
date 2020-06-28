@@ -76,11 +76,7 @@ function PostCard(props) {
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
         <div className={styles.infoUser}>
-          <Avatar
-            img={profilePictureUrl}
-            size="small"
-            className={styles.avatar}
-          />
+          <Avatar img={profilePictureUrl} size="small" />
           <Link to={username}>{username}</Link>
         </div>
         <DotIcon />

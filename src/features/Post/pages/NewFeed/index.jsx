@@ -6,6 +6,7 @@ import PostForm from 'features/Post/components/PostForm';
 import { useDispatch } from 'react-redux';
 import API from 'utils/API';
 import { setPost, createPost } from 'features/Post/PostSlice';
+import Sider from 'components/Sider';
 
 NewfeedPage.propTypes = {};
 
@@ -33,13 +34,20 @@ function NewfeedPage(props) {
   return (
     <Container style={{ paddingTop: 100 }}>
       <Row>
-        <Col>
-          <PostForm onSubmit={handleSubmitPostForm} />
+        <Col xs="auto">
+          <Row>
+            <Col>
+              <PostForm onSubmit={handleSubmitPostForm} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <PostList />
+            </Col>
+          </Row>
         </Col>
-      </Row>
-      <Row>
-        <Col>
-          <PostList />
+        <Col xs="4">
+          <Sider />
         </Col>
       </Row>
     </Container>

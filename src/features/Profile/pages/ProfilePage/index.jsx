@@ -1,3 +1,4 @@
+import Footer from 'components/Footer';
 import { setPosts } from 'features/Profile/ProfileSlice';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +9,6 @@ import {
 import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
 import styles from './style.module.scss';
-import Footer from 'components/Footer';
 const PostCardImageList = React.lazy(() =>
   import('features/Profile/components/PostCardImageList')
 );
