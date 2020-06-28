@@ -1,4 +1,3 @@
-import PostList from 'features/Post/components/PostList';
 import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
@@ -7,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import API from 'utils/API';
 import { setPost, createPost } from 'features/Post/PostSlice';
 import Sider from 'components/Sider';
-
+const PostList = React.lazy(() => import('features/Post/components/PostList'));
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {

@@ -8,6 +8,7 @@ import NotFound from 'components/NotFound';
 import BlankLayout from 'components/Layouts/BlankLayout';
 import PublicRoute from './publicRoute';
 import MainLayout from 'components/Layouts/MainLayout';
+import Loader from 'components/Loader';
 
 const Auth = React.lazy(() => import('features/Auth'));
 const Post = React.lazy(() => import('features/Post'));
@@ -15,7 +16,7 @@ const Profile = React.lazy(() => import('features/Profile'));
 function Routes() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading ...</div>}>
+      <Suspense fallback={<Loader />}>
         <Switch>
           <Route exact path="/404" component={NotFound} />
           <PublicRoute path="/auth" component={Auth} layout={BlankLayout} />
