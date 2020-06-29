@@ -15,10 +15,10 @@ Auth.propTypes = {};
 function Auth(props) {
   const match = useRouteMatch();
   const history = useHistory();
-  // const token = localStorage.getItem('jwtToken');
-  // if (token) {
-  //   history.push('/');
-  // }
+  const token = localStorage.jwtToken;
+  if (token) {
+    history.push('/');
+  }
   return (
     <Switch>
       <Route exact path={`${match.url}/login`} component={LoginPage} />

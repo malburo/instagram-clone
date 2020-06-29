@@ -9,6 +9,7 @@ import BlankLayout from 'components/Layouts/BlankLayout';
 import PublicRoute from './publicRoute';
 import MainLayout from 'components/Layouts/MainLayout';
 import Loader from 'components/Loader';
+import PrivateRoute from './privateRoute';
 
 const Auth = React.lazy(() => import('features/Auth'));
 const Post = React.lazy(() => import('features/Post'));
@@ -20,13 +21,13 @@ function Routes() {
         <Switch>
           <Route exact path="/404" component={NotFound} />
           <PublicRoute path="/auth" component={Auth} layout={BlankLayout} />
-          <PublicRoute
+          <PrivateRoute
             exact
             path="/:username"
             component={Profile}
             layout={MainLayout}
           />
-          <PublicRoute exact path="/" component={Post} layout={MainLayout} />
+          <PrivateRoute exact path="/" component={Post} layout={MainLayout} />
           <Route component={NotFound} />
         </Switch>
       </Suspense>

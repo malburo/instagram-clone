@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 const auth = createSlice({
   name: 'auth',
   initialState: {
@@ -13,8 +12,7 @@ const auth = createSlice({
       state.isAuthenticated = true;
     },
     logoutSuccess: (state, action) => {
-      state.user = null;
-      state.isAuthenticated = false;
+      localStorage.removeItem('jwtToken');
     },
   },
 });

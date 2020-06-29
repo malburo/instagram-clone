@@ -8,17 +8,29 @@
     align-items: center;
     justify-content: center;
   }
-  .info {
+  .body {
     flex: 7;
-    display: flex;
-    font-size: 26px;
-    font-weight: 300;
-    margin-top: 10px;
-    p {
-      margin-bottom: 0;
+    .info {
+      display: flex;
+      font-size: 26px;
+      font-weight: 300;
+      margin-top: 10px;
+      p {
+        margin-bottom: 0;
+      }
+      .name {
+        margin-right: 10px;
+      }
     }
-    .name {
-      margin-right: 10px;
+    .des {
+      margin-top: 20px;
+      span {
+        margin-right: 20px;
+      }
     }
   }
+}
+
+.setting-modal{
+  
 }
