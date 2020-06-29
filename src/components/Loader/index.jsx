@@ -4,8 +4,8 @@ Loader.propTypes = {};
 
 function Loader(props) {
   return (
-    <div class="browser-screen-loading-content">
-      <div class="loading-dots dark-gray">
+    <div className="browser-screen-loading-content">
+      <div className="loading-dots dark-gray">
         <i></i>
         <i></i>
         <i></i>

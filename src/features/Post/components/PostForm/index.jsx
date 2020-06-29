@@ -1,5 +1,5 @@
 import InputField from 'custom-field/InputField';
-import UploadFiled from 'custom-field/UploadField';
+import UploadField from 'custom-field/UploadField';
 import PropTypes from 'prop-types';
 import { FastField, Form, Formik } from 'formik';
 import React, { useState } from 'react';
@@ -45,7 +45,7 @@ function PostForm(props) {
             <FastField
               type="file"
               name="file"
-              component={UploadFiled}
+              component={UploadField}
               key={fileInputKey}
             />
             <FormGroup>

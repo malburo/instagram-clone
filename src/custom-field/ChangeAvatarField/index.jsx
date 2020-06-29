@@ -2,7 +2,7 @@ import { ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormFeedback, FormGroup, Input } from 'reactstrap';
-
+import styles from './style.module.scss';
 UploadField.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
@@ -20,19 +20,19 @@ UploadField.defaultProps = {
 function UploadField(props) {
   const { field, form, type, disabled } = props;
   const { name } = field;
-  const { errors, setFieldValue } = form;
-  const showError = errors[name];
-
+  const { setFieldValue, submitForm } = form;
+  console.log(form);
   return (
     <FormGroup>
       <Input
         id={name}
         onChange={event => {
-          setFieldValue('file', event.currentTarget.files[0]);
+          setFieldValue('avatar', event.currentTarget.files[0]);
+          submitForm();
         }}
         type={type}
         disabled={disabled}
-        invalid={showError}
+        className={styles.input}
       />
       <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>

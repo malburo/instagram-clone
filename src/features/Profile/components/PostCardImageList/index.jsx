@@ -12,9 +12,9 @@ function PostCardImageList(props) {
   const postsList = posts.map(item => {
     const { postPictureUrl } = item;
     return (
-      <Col xs="4">
+      <Col xs="4" key={item._id}>
         <div className={styles.item}>
-          <PostCardImage postPictureUrl={postPictureUrl} />
+          <PostCardImage postPictureUrl={postPictureUrl} key={item._id} />
         </div>
       </Col>
     );

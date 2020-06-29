@@ -9,6 +9,7 @@ import {
 import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
 import styles from './style.module.scss';
+import { checkCurrentUser } from 'features/Auth/AuthSlice';
 const PostCardImageList = React.lazy(() =>
   import('features/Profile/components/PostCardImageList')
 );
@@ -25,13 +26,14 @@ function ProfilePage(props) {
       try {
         const response = await API.call('get', `profile/${username}/posts`);
         dispatch(setPosts(response.profile));
+        dispatch(checkCurrentUser(response.isCurrentUser));
       } catch (e) {
         console.log('error:', e);
         history.push('/404');
       }
     }
     fetchData();
-  }, []);
+  });
   return (
     <>
       <Container style={{ paddingTop: 100 }}>
