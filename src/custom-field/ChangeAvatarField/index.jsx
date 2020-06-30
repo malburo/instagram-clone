@@ -21,7 +21,6 @@ function UploadField(props) {
   const { field, form, type, disabled } = props;
   const { name } = field;
   const { setFieldValue, submitForm } = form;
-  console.log(form);
   return (
     <FormGroup>
       <Input

@@ -25,11 +25,14 @@ function ProfilePage(props) {
     async function fetchData() {
       try {
         const response = await API.call('get', `profile/${username}/posts`);
+        if (!response.checkParams) {
+          history.push('/404');
+          return;
+        }
         dispatch(setPosts(response.profile));
         dispatch(checkCurrentUser(response.isCurrentUser));
       } catch (e) {
         console.log('error:', e);
-        history.push('/404');
       }
     }
     fetchData();
