@@ -1,8 +1,8 @@
 #  :watermelon: Malburo Instagram Clone
+With main functions: creating posts, likes, comments, profile....
 - frontend: reactjs
 - backend: nodejs, expressjs
 - database: mongodb
-With main functions: creating posts, likes, comments, profile....
 ## Demo
 - Here is the demo link: [Instagram Clone](https://malburo-instagram-clone.web.app/)
 - Backend github repository: [Instagram Clone Backend](https://github.com/malburo/instagram-clone-backend)
