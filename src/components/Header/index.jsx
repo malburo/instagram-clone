@@ -4,6 +4,7 @@ import styles from './style.module.scss';
 import Avatar from 'components/Avatar';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useSelector } from 'react-redux';
+import Skeleton from 'react-loading-skeleton';
 
 const Header = props => {
   const user = useSelector(state => state.auth.user);
@@ -24,11 +25,15 @@ const Header = props => {
           <Col className="col-2">
             <div className="d-flex justify-content-between align-items-center">
               <Link to={user.username}>
-                <Avatar
-                  img={profilePictureUrl}
-                  size="small"
-                  className={styles.avatar}
-                />
+                {profilePictureUrl ? (
+                  <Avatar
+                    img={profilePictureUrl}
+                    size="small"
+                    className={styles.avatar}
+                  />
+                ) : (
+                  <Skeleton circle={true} height={32} width={32} />
+                )}
               </Link>
             </div>
           </Col>

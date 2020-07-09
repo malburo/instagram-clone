@@ -35,3 +35,11 @@
     color: rgba(var(--edc, 199, 199, 199), 1);
   }
 }
+
+.isFetching {
+  display: flex;
+  align-items: center;
+  .avatar {
+    margin-right: 20px;
+  }
+}

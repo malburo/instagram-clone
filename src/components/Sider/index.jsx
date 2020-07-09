@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styles from './style.module.scss';
+import Skeleton from 'react-loading-skeleton';
 Sider.propTypes = {};
 
 function Sider(props) {
@@ -12,7 +13,19 @@ function Sider(props) {
     <div className={styles.wrapper}>
       <div className={styles.info}>
         <Link to={username}>
-          <Avatar img={profilePictureUrl} size="medium" />
+          {profilePictureUrl ? (
+            <Avatar img={profilePictureUrl} size="medium" />
+          ) : (
+            <div className={styles.isFetching}>
+              <Skeleton
+                circle={true}
+                height={50}
+                width={50}
+                className={styles.avatar}
+              />
+              <Skeleton width={100} />
+            </div>
+          )}
         </Link>
         <Link to={username}>{username}</Link>
       </div>

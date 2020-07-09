@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import styles from './style.module.scss';
 import SettingModal from '../SettingModal';
 import ChangeAvatarForm from '../ChangeAvatarForm';
+import Skeleton from 'react-loading-skeleton';
 
 InfoCard.propTypes = {};
 
@@ -16,16 +17,27 @@ function InfoCard(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatar}>
-        {isCurrentUser ? (
-          <ChangeAvatarForm profilePictureUrl={currentUser.profilePictureUrl} />
+        {profilePictureUrl ? (
+          isCurrentUser ? (
+            <ChangeAvatarForm
+              profilePictureUrl={currentUser.profilePictureUrl}
+            />
+          ) : (
+            <Avatar img={profilePictureUrl} />
+          )
         ) : (
-          <Avatar img={profilePictureUrl} />
+          <Skeleton
+            circle={true}
+            height={150}
+            width={150}
+            style={{ marginTop: 24 }}
+          />
         )}
       </div>
       <div className={styles.body}>
         <div className={styles.info}>
           <div className={styles.name}>
-            <p>{username}</p>
+            {username ? <p>{username}</p> : <Skeleton width={100} />}
           </div>
           <div className={styles.icon}>
             {isCurrentUser && (

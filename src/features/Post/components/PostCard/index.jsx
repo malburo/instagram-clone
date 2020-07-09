@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Avatar from 'components/Avatar';
-import styles from './style.module.scss';
 import {
-  LikeIcon,
   CommentIcon,
+  DotIcon,
+  LikeIcon,
   MessageIcon,
   SaveIcon,
-  DotIcon,
 } from 'components/Icon';
-import CommentForm from '../CommentForm';
-import Comment from '../Comment';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { like, setComment, unlike } from 'features/Post/PostSlice';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import API from 'utils/API';
-import { like, unlike, setComment } from 'features/Post/PostSlice';
+import Comment from '../Comment';
+import CommentForm from '../CommentForm';
+import styles from './style.module.scss';
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
   likes: PropTypes.array,
@@ -38,6 +38,7 @@ function PostCard(props) {
     postId,
     caption,
   } = props;
+
   const dispatch = useDispatch();
   const userId = useSelector(state => state.auth.user._id);
   const isLiked = likes.find(item => item.userId === userId);

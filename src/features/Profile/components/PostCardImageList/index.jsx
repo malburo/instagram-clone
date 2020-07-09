@@ -1,9 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Col, Row } from 'reactstrap';
+import EmptyPost from '../EmptyPost';
 import PostCardImage from '../PostCardImage';
 import styles from './style.module.scss';
-import { useSelector } from 'react-redux';
-import EmptyPost from '../EmptyPost';
 PostCardImageList.propTypes = {};
 
 function PostCardImageList(props) {

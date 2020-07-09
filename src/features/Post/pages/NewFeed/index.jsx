@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react';
+import Sider from 'components/Sider';
+import PostCardSkeleton from 'features/Post/components/PostCardSkeleton';
+import PostForm from 'features/Post/components/PostForm';
+import { createPost, setPost } from 'features/Post/PostSlice';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
-import PostForm from 'features/Post/components/PostForm';
-import { useDispatch } from 'react-redux';
 import API from 'utils/API';
-import { setPost, createPost } from 'features/Post/PostSlice';
-import Sider from 'components/Sider';
-const PostList = React.lazy(() => import('features/Post/components/PostList'));
+import PostList from 'features/Post/components/PostList';
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
+  const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchData() {
-      const response = await API.call('get', 'posts');
-      dispatch(setPost(response.posts));
+      try {
+        setIsFetching(true);
+        const response = await API.call('get', 'posts');
+        setIsFetching(false);
+        dispatch(setPost(response.posts));
+      } catch (e) {
+        setIsFetching(false);
+        console.log(e);
+      }
     }
     fetchData();
   }, [dispatch]);
@@ -40,9 +49,7 @@ function NewfeedPage(props) {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <PostList />
-            </Col>
+            <Col>{isFetching ? <PostCardSkeleton /> : <PostList />}</Col>
           </Row>
         </Col>
         <Col xs="4">

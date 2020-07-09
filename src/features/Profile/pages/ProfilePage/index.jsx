@@ -1,6 +1,10 @@
 import Footer from 'components/Footer';
+import { checkCurrentUser } from 'features/Auth/AuthSlice';
+import InfoCard from 'features/Profile/components/InfoCard';
+import PostCardImageList from 'features/Profile/components/PostCardImageList';
+import PostListSkeleton from 'features/Profile/components/PostListSkeleton';
 import { setPosts } from 'features/Profile/ProfileSlice';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   useHistory,
@@ -9,22 +13,19 @@ import {
 import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
 import styles from './style.module.scss';
-import { checkCurrentUser } from 'features/Auth/AuthSlice';
-const PostCardImageList = React.lazy(() =>
-  import('features/Profile/components/PostCardImageList')
-);
-const InfoCard = React.lazy(() =>
-  import('features/Profile/components/InfoCard')
-);
+
 ProfilePage.propTypes = {};
 function ProfilePage(props) {
+  const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const { username } = useParams();
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsFetching(true);
         const response = await API.call('get', `profile/${username}/posts`);
+        setIsFetching(false);
         if (!response.checkParams) {
           history.push('/404');
           return;
@@ -32,11 +33,12 @@ function ProfilePage(props) {
         dispatch(setPosts(response.profile));
         dispatch(checkCurrentUser(response.isCurrentUser));
       } catch (e) {
+        setIsFetching(false);
         console.log('error:', e);
       }
     }
     fetchData();
-  });
+  }, [dispatch, history, username]);
   return (
     <>
       <Container style={{ paddingTop: 100 }}>
@@ -49,7 +51,7 @@ function ProfilePage(props) {
         <Row>
           <Col>
             <div className={styles.list}>
-              <PostCardImageList />
+              {isFetching ? <PostListSkeleton /> : <PostCardImageList />}
             </div>
           </Col>
         </Row>
