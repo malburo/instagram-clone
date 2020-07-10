@@ -25,7 +25,7 @@ function ChangeAvatarForm(props) {
       const response = await API.call('post', 'profile/avatar', formData);
       dispatch(changeAvatar(response.profilePictureUrl));
     } catch (e) {
-      console.log('Tạo bài viết không thành công');
+      console.log(e);
     }
   };
   return (

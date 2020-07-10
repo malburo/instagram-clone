@@ -3,8 +3,8 @@ import React from 'react';
 import {
   Route,
   Switch,
-  useRouteMatch,
   useHistory,
+  useRouteMatch,
 } from 'react-router-dom/cjs/react-router-dom.min';
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';

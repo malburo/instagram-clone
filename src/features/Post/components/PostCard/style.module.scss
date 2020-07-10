@@ -1,9 +1,11 @@
+@import '../../../../assets/styles/color';
+
 .post-card {
-  width: 600px;
-  border: 1px solid #efefef;
+  max-width: 600px;
+  margin: 0 auto;
   margin-bottom: 50px;
-  background-color: #fff;
-  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  background-color: $white-color;
+  border: $border-color;
   &__header {
     margin: 16px;
     display: flex;
@@ -14,9 +16,9 @@
       align-items: center;
     }
   }
-  &__image img {
-    width: 600px;
-    height: 600px;
+  &__image {
+    width: 100%;
+    max-height: 600px;
     object-fit: cover;
   }
   &__footer {
@@ -31,17 +33,15 @@
           margin: 0px 20px 0px 0px;
         }
       }
-      &__right {
-      }
+    }
+    .number-of-likes {
+      font-size: 16px;
     }
   }
   a {
-    color: black;
+    color: $text-color-dark;
     font-weight: 600;
     text-decoration: none;
   }
 }
 
-.number-of-likes {
-  font-size: 16px;
-}

@@ -1,41 +1,38 @@
+import Avatar from 'components/Avatar';
 import React from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
 import styles from './style.module.scss';
-import Avatar from 'components/Avatar';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { useSelector } from 'react-redux';
-import Skeleton from 'react-loading-skeleton';
 
-const Header = props => {
+const Header = () => {
   const user = useSelector(state => state.auth.user);
   const { profilePictureUrl } = user;
   return (
-    <header
-      className={`${styles.header} d-flex align-items-center justify-content-between`}>
+    <header className={styles.header}>
       <Container>
         <Row className="d-flex justify-content-between align-items-center">
-          <Col className="col-auto">
+          <Col xs="auto">
             <Link to="/" className={styles.logo}>
               <h3>Malburo</h3>
             </Link>
           </Col>
-          <Col className={`${styles.search} col-auto`}>
-            <input type="text" placeholder="Tìm kiếm..." />
+          <Col xs="auto" className="d-none d-md-block">
+            <input
+              type="text"
+              placeholder="Tìm kiếm..."
+              className={styles.search}
+            />
           </Col>
-          <Col className="col-2">
-            <div className="d-flex justify-content-between align-items-center">
-              <Link to={user.username}>
-                {profilePictureUrl ? (
-                  <Avatar
-                    img={profilePictureUrl}
-                    size="small"
-                    className={styles.avatar}
-                  />
-                ) : (
-                  <Skeleton circle={true} height={32} width={32} />
-                )}
-              </Link>
-            </div>
+          <Col xs="auto">
+            <Link to={user.username}>
+              {profilePictureUrl ? (
+                <Avatar img={profilePictureUrl} size="small" />
+              ) : (
+                <Skeleton circle={true} height={32} width={32} />
+              )}
+            </Link>
           </Col>
         </Row>
       </Container>

@@ -1,7 +1,7 @@
 import InputField from 'custom-field/InputField';
 import UploadField from 'custom-field/UploadField';
-import PropTypes from 'prop-types';
 import { FastField, Form, Formik } from 'formik';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';

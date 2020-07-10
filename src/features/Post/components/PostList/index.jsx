@@ -1,11 +1,8 @@
 import React from 'react';
-import PostCard from '../PostCard';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import PostCard from '../PostCard';
 
-PostList.propTypes = {
-  isFetching: PropTypes.bool,
-};
+PostList.propTypes = {};
 
 function PostList(props) {
   const posts = useSelector(state => state.posts);

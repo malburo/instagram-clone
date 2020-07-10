@@ -1,14 +1,13 @@
 import Footer from 'components/Footer';
-import { checkCurrentUser } from 'features/Auth/AuthSlice';
 import InfoCard from 'features/Profile/components/InfoCard';
 import PostCardImageList from 'features/Profile/components/PostCardImageList';
 import PostListSkeleton from 'features/Profile/components/PostListSkeleton';
-import { setPosts } from 'features/Profile/ProfileSlice';
+import { setPosts, setUser } from 'features/Profile/ProfileSlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   useHistory,
-  useParams,
+  useParams
 } from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
@@ -31,7 +30,7 @@ function ProfilePage(props) {
           return;
         }
         dispatch(setPosts(response.profile));
-        dispatch(checkCurrentUser(response.isCurrentUser));
+        dispatch(setUser(response));
       } catch (e) {
         setIsFetching(false);
         console.log('error:', e);
@@ -40,24 +39,26 @@ function ProfilePage(props) {
     fetchData();
   }, [dispatch, history, username]);
   return (
-    <>
-      <Container style={{ paddingTop: 100 }}>
-        <Row>
-          <Col>
-            <InfoCard />
-          </Col>
-        </Row>
-        <hr />
-        <Row>
-          <Col>
-            <div className={styles.list}>
-              {isFetching ? <PostListSkeleton /> : <PostCardImageList />}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-      <Footer />
-    </>
+    <Container style={{ paddingTop: 100 }}>
+      <Row>
+        <Col>
+          <InfoCard />
+        </Col>
+      </Row>
+      <hr />
+      <Row>
+        <Col>
+          <div className={styles.list}>
+            {isFetching ? <PostListSkeleton /> : <PostCardImageList />}
+          </div>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col>
+          <Footer />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

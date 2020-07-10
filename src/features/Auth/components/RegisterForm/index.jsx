@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from './style.module.scss';
-import { Button, FormGroup, Spinner } from 'reactstrap';
-import { FastField, Formik, Form } from 'formik';
 import InputField from 'custom-field/InputField';
+import { FastField, Form, Formik } from 'formik';
+import React from 'react';
+import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
+import styles from './style.module.scss';
 
 const RegisterForm = props => {
   const initialValues = {

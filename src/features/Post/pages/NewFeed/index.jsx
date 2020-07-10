@@ -1,13 +1,14 @@
 import Sider from 'components/Sider';
 import PostCardSkeleton from 'features/Post/components/PostCardSkeleton';
 import PostForm from 'features/Post/components/PostForm';
+import PostList from 'features/Post/components/PostList';
 import { createPost, setPost } from 'features/Post/PostSlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
 import API from 'utils/API';
-import PostList from 'features/Post/components/PostList';
+import styles from './style.module.scss';
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
@@ -36,13 +37,13 @@ function NewfeedPage(props) {
       dispatch(createPost(response.newPost));
       actions.resetForm();
     } catch (e) {
-      console.log('Tạo bài viết không thành công');
+      console.log(e);
     }
   };
   return (
     <Container style={{ paddingTop: 100 }}>
-      <Row>
-        <Col xs="auto">
+      <Row className={styles['no-gutter']}>
+        <Col xs={12} lg={8}>
           <Row>
             <Col>
               <PostForm onSubmit={handleSubmitPostForm} />
@@ -52,7 +53,7 @@ function NewfeedPage(props) {
             <Col>{isFetching ? <PostCardSkeleton /> : <PostList />}</Col>
           </Row>
         </Col>
-        <Col xs="4">
+        <Col lg={4} className="d-none d-lg-block">
           <Sider />
         </Col>
       </Row>

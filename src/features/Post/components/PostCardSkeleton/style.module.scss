@@ -1,9 +1,10 @@
+@import '../../../../assets/styles/color';
 .post-card {
-  width: 600px;
-  border: 1px solid #efefef;
+  max-width: 600px;
+  margin: 0 auto;
+  border: $border-color;
   margin-bottom: 50px;
-  background-color: #fff;
-  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  background-color: $white-color;
   &__header {
     margin: 16px;
     display: flex;

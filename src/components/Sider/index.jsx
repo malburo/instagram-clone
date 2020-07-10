@@ -1,9 +1,9 @@
 import Avatar from 'components/Avatar';
 import React from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styles from './style.module.scss';
-import Skeleton from 'react-loading-skeleton';
 Sider.propTypes = {};
 
 function Sider(props) {
@@ -29,7 +29,7 @@ function Sider(props) {
         </Link>
         <Link to={username}>{username}</Link>
       </div>
-      <div className={styles.nav}>
+      <div className={styles.list}>
         <ul>
           <li>
             <Link>Giới thiệu</Link>

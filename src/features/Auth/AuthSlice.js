@@ -5,7 +5,6 @@ const auth = createSlice({
   initialState: {
     isAuthenticated: false,
     user: {},
-    isCurrentUser: false,
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -15,9 +14,6 @@ const auth = createSlice({
     logoutSuccess: (state, action) => {
       localStorage.removeItem('jwtToken');
     },
-    checkCurrentUser: (state, action) => {
-      state.isCurrentUser = action.payload;
-    },
     changeAvatar: (state, action) => {
       state.user.profilePictureUrl = action.payload;
     },
@@ -25,10 +21,5 @@ const auth = createSlice({
 });
 
 const { reducer, actions } = auth;
-export const {
-  loginSuccess,
-  logoutSuccess,
-  checkCurrentUser,
-  changeAvatar,
-} = actions;
+export const { loginSuccess, logoutSuccess, changeAvatar } = actions;
 export default reducer;

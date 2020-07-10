@@ -1,11 +1,11 @@
+import { loginSuccess } from 'features/Auth/AuthSlice';
 import LoginForm from 'features/Auth/components/LoginForm';
 import React from 'react';
-import styles from './style.module.scss';
-import { Container, Row, Col } from 'reactstrap';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { loginSuccess } from 'features/Auth/AuthSlice';
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
+import styles from './style.module.scss';
 LoginPage.propTypes = {};
 
 function LoginPage(props) {

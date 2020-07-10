@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import CommentInputField from 'custom-field/CommentInputField';
 
 CommentForm.propTypes = {
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
 };
 
@@ -43,16 +43,14 @@ function CommentForm(props) {
                 placeholder="Thêm bình luận..."
               />
             </div>
-            <div className={styles['comment-form__button']}>
-              <FormGroup>
-                <Button
-                  type="submit"
-                  color="secondary"
-                  disabled={values.comment === '' || errors.comment}>
-                  {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
-                </Button>
-              </FormGroup>
-            </div>
+            <FormGroup>
+              <Button
+                type="submit"
+                color="secondary"
+                disabled={values.comment === '' || errors.comment}>
+                {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
+              </Button>
+            </FormGroup>
           </Form>
         );
       }}

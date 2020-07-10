@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from './style.module.scss';
-import { Container, Row, Col } from 'reactstrap';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import RegisterForm from 'features/Auth/components/RegisterForm';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Col, Container, Row } from 'reactstrap';
 import API from 'utils/API';
+import styles from './style.module.scss';
 RegisterPage.propTypes = {};
 
 function RegisterPage(props) {

@@ -15,6 +15,7 @@ import API from 'utils/API';
 import Comment from '../Comment';
 import CommentForm from '../CommentForm';
 import styles from './style.module.scss';
+
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
   likes: PropTypes.array,
@@ -84,8 +85,12 @@ function PostCard(props) {
         </div>
         <DotIcon />
       </div>
-      <div className={styles['post-card__image']}>
-        <img src={postPictureUrl} alt="postImage" />
+      <div>
+        <img
+          src={postPictureUrl}
+          alt="postImage"
+          className={styles['post-card__image']}
+        />
       </div>
       <div className={styles['post-card__footer']}>
         <div className={styles['list-icon']}>

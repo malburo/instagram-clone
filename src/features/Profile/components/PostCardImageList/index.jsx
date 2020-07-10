@@ -4,24 +4,27 @@ import { Col, Row } from 'reactstrap';
 import EmptyPost from '../EmptyPost';
 import PostCardImage from '../PostCardImage';
 import styles from './style.module.scss';
+
 PostCardImageList.propTypes = {};
 
 function PostCardImageList(props) {
   const profile = useSelector(state => state.profile);
-  const { posts } = profile;
+  const { posts, isCurrentUser } = profile;
   const postsList = posts.map(item => {
     const { postPictureUrl } = item;
     return (
       <Col xs="4" key={item._id}>
-        <div className={styles.item}>
-          <PostCardImage postPictureUrl={postPictureUrl} key={item._id} />
-        </div>
+        <PostCardImage postPictureUrl={postPictureUrl} key={item._id} />
       </Col>
     );
   });
   return (
-    <Row className={styles.list}>
-      {posts.length === 0 ? <EmptyPost /> : postsList}
+    <Row className={`${styles.list} no-gutters`}>
+      {posts.length === 0 ? (
+        <EmptyPost isCurrentUser={isCurrentUser} />
+      ) : (
+        postsList
+      )}
     </Row>
   );
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import styles from './style.module.scss';
-import { Container, Row, Col } from 'reactstrap';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import ResetPasswordForm from 'features/Auth/components/ResetPasswordForm';
+import React from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Col, Container, Row } from 'reactstrap';
+import styles from './style.module.scss';
 ResetPasswordPage.propTypes = {};
 
 function ResetPasswordPage(props) {
