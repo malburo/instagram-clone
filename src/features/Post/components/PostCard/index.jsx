@@ -11,10 +11,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import API from 'utils/API';
 import Comment from '../Comment';
 import CommentForm from '../CommentForm';
 import styles from './style.module.scss';
+import postsApi from 'api/postsApi';
 
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
@@ -43,16 +43,16 @@ function PostCard(props) {
   const dispatch = useDispatch();
   const userId = useSelector(state => state.auth.user._id);
   const isLiked = likes.find(item => item.userId === userId);
+
   const handleLike = postId => {
     async function fetchData() {
-      const data = { postId };
       try {
-        if (!isLiked) {
-          const response = await API.call('post', 'likes/like', data);
-          dispatch(like(response.like));
+        if (isLiked) {
+          const response = await postsApi.unlike(postId);
+          dispatch(unlike(response.unlike));
         } else {
-          const response = await API.call('post', 'likes/unlike', data);
-          dispatch(unlike(response.data));
+          const response = await postsApi.like(postId);
+          dispatch(like(response.like));
         }
       } catch (e) {
         console.log(e);
@@ -60,12 +60,10 @@ function PostCard(props) {
     }
     fetchData();
   };
-  const handleComment = (postId, content, actions) => {
+  const handleComment = (postId, comment, actions) => {
     async function fetchData() {
-      const { comment } = content;
-      const data = { postId, comment };
       try {
-        const response = await API.call('post', 'comments/create', data);
+        const response = await postsApi.comment(postId, comment);
         dispatch(setComment(response.data));
         actions.resetForm();
       } catch (e) {

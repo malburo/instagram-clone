@@ -7,18 +7,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
-import API from 'utils/API';
 import styles from './style.module.scss';
+import postsApi from 'api/postsApi';
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    async function fetchData() {
+    async function fetchPostList() {
       try {
         setIsFetching(true);
-        const response = await API.call('get', 'posts');
+        const response = await postsApi.get();
         setIsFetching(false);
         dispatch(setPost(response.posts));
       } catch (e) {
@@ -26,14 +27,15 @@ function NewfeedPage(props) {
         console.log(e);
       }
     }
-    fetchData();
+    fetchPostList();
   }, [dispatch]);
   const handleSubmitPostForm = async (newPost, actions) => {
     try {
+      const { caption, file } = newPost;
       let formData = new FormData();
-      formData.append('caption', newPost.caption);
-      formData.append('postImage', newPost.file);
-      const response = await API.call('post', 'posts/create', formData);
+      formData.append('caption', caption);
+      formData.append('postImage', file);
+      const response = await postsApi.createPost(formData);
       dispatch(createPost(response.newPost));
       actions.resetForm();
     } catch (e) {

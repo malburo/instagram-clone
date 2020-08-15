@@ -22,9 +22,9 @@ function CommentForm(props) {
   const validationSchema = Yup.object().shape({
     comment: Yup.string().required('This field is required.'),
   });
-  const handleSubmit = (comment, actions) => {
+  const handleSubmit = (data, actions) => {
     if (onSubmit) {
-      onSubmit(postId, comment, actions);
+      onSubmit(postId, data.comment, actions);
     }
   };
   return (
