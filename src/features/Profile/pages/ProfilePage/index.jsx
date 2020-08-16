@@ -1,3 +1,4 @@
+import profileApi from 'api/profileApi';
 import Footer from 'components/Footer';
 import InfoCard from 'features/Profile/components/InfoCard';
 import PostCardImageList from 'features/Profile/components/PostCardImageList';
@@ -7,10 +8,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   useHistory,
-  useParams
+  useParams,
 } from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
-import API from 'utils/API';
 import styles from './style.module.scss';
 
 ProfilePage.propTypes = {};
@@ -23,7 +23,7 @@ function ProfilePage(props) {
     async function fetchData() {
       try {
         setIsFetching(true);
-        const response = await API.call('get', `profile/${username}/posts`);
+        const response = await profileApi.getPosts(username);
         setIsFetching(false);
         if (!response.checkParams) {
           history.push('/404');
