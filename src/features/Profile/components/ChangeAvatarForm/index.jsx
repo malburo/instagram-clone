@@ -1,10 +1,10 @@
+import profileApi from 'api/profileApi';
 import Avatar from 'components/Avatar';
 import ChangeAvatarField from 'custom-field/ChangeAvatarField';
 import { changeAvatar } from 'features/Auth/AuthSlice';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import API from 'utils/API';
 import * as Yup from 'yup';
 import styles from './style.module.scss';
 ChangeAvatarForm.propTypes = {};
@@ -18,11 +18,12 @@ function ChangeAvatarForm(props) {
   const validationSchema = Yup.object().shape({
     avatar: Yup.mixed(),
   });
-  const handleSubmit = async (newAvatar, actions) => {
+  const handleSubmit = async (data, actions) => {
     try {
+      const { avatar } = data;
       let formData = new FormData();
-      formData.append('avatar', newAvatar.avatar);
-      const response = await API.call('post', 'profile/avatar', formData);
+      formData.append('avatar', avatar);
+      const response = await profileApi.changeAvatar(formData);
       dispatch(changeAvatar(response.profilePictureUrl));
     } catch (e) {
       console.log(e);
