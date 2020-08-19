@@ -15,19 +15,19 @@ const postStore = createSlice({
         return state._id !== action.payload;
       });
     },
-    like: (state, action) => {
+    setReaction: (state, action) => {
       const post = state.find(item => item._id === action.payload.postId);
-      post.likes.push(action.payload);
-    },
-    unlike: (state, action) => {
-      const post = state.find(item => item._id === action.payload.postId);
-      const index = post.likes.findIndex(item => {
+      if (action.payload.type === 'like') {
+        post.reactions.push(action.payload);
+        return;
+      }
+      const index = post.reactions.findIndex(item => {
         return (
           item.userId === action.payload.userId &&
           item.postId === action.payload.postId
         );
       });
-      post.likes.splice(index, 1);
+      post.reactions.splice(index, 1);
     },
     setComment: (state, action) => {
       const post = state.find(item => item._id === action.payload.postId);
@@ -41,8 +41,7 @@ export const {
   setPost,
   createPost,
   deletePost,
-  like,
-  unlike,
+  setReaction,
   setComment,
 } = actions;
 export default reducer;
