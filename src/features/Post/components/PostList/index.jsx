@@ -7,7 +7,7 @@ PostList.propTypes = {};
 function PostList(props) {
   const posts = useSelector(state => state.posts);
   const postsList = posts.map(post => {
-    const { userId, postPictureUrl, caption, likes, comments, _id } = post;
+    const { userId, postPictureUrl, caption, reactions, comments, _id } = post;
     return (
       <PostCard
         key={_id}
@@ -16,7 +16,7 @@ function PostList(props) {
         username={userId.username}
         postPictureUrl={postPictureUrl}
         caption={caption}
-        likes={likes}
+        reactions={reactions}
         comments={comments}
       />
     );

@@ -1,3 +1,4 @@
+import postsApi from 'api/postsApi';
 import Avatar from 'components/Avatar';
 import {
   CommentIcon,
@@ -6,7 +7,7 @@ import {
   MessageIcon,
   SaveIcon,
 } from 'components/Icon';
-import { like, setComment, unlike } from 'features/Post/PostSlice';
+import { setComment, setReaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +15,6 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Comment from '../Comment';
 import CommentForm from '../CommentForm';
 import styles from './style.module.scss';
-import postsApi from 'api/postsApi';
 
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
@@ -25,13 +25,13 @@ PostCard.propTypes = {
   username: PropTypes.string.isRequired,
 };
 PostCard.defaultProps = {
-  likes: [],
+  reactions: [],
   comments: [],
   isLiked: false,
 };
 function PostCard(props) {
   const {
-    likes,
+    reactions,
     comments,
     profilePictureUrl,
     postPictureUrl,
@@ -42,18 +42,17 @@ function PostCard(props) {
 
   const dispatch = useDispatch();
   const userId = useSelector(state => state.auth.user._id);
-  const isLiked = likes.find(item => item.userId === userId);
+  const isLiked = reactions.find(item => item.userId === userId);
 
-  const handleLike = postId => {
+  const handleReaction = postId => {
     async function fetchData() {
       try {
+        let type = 'like';
         if (isLiked) {
-          const response = await postsApi.unlike(postId);
-          dispatch(unlike(response.unlike));
-        } else {
-          const response = await postsApi.like(postId);
-          dispatch(like(response.like));
+          type = null;
         }
+        const response = await postsApi.reaction(postId, type);
+        dispatch(setReaction(response.reaction));
       } catch (e) {
         console.log(e);
       }
@@ -97,7 +96,7 @@ function PostCard(props) {
               <LikeIcon
                 isLiked={!!isLiked}
                 postId={postId}
-                handleLike={handleLike}
+                handleReaction={handleReaction}
               />
             </span>
             <span className={styles['icon-footer']}>
@@ -112,7 +111,7 @@ function PostCard(props) {
           </div>
         </div>
         <div className={styles['number-of-likes']}>
-          {likes.length > 0 && <span>{likes.length} lượt thích</span>}
+          {reactions.length > 0 && <span>{reactions.length} lượt thích</span>}
         </div>
         <div>
           {caption !== '' && (
