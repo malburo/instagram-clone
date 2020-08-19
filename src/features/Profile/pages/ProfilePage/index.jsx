@@ -3,9 +3,9 @@ import Footer from 'components/Footer';
 import InfoCard from 'features/Profile/components/InfoCard';
 import PostCardImageList from 'features/Profile/components/PostCardImageList';
 import PostListSkeleton from 'features/Profile/components/PostListSkeleton';
-import { setPosts, setUser } from 'features/Profile/ProfileSlice';
+import { setProfile, checkCurrentUser } from 'features/Profile/ProfileSlice';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   useHistory,
   useParams,
@@ -18,22 +18,28 @@ function ProfilePage(props) {
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const currentUser = useSelector(state => state.auth.user);
   const { username } = useParams();
+
+  useEffect(() => {
+    const isCurrentUser = currentUser.username === username;
+    dispatch(checkCurrentUser(isCurrentUser));
+  }, [dispatch, currentUser, username]);
+
   useEffect(() => {
     async function fetchData() {
       try {
         setIsFetching(true);
-        const response = await profileApi.getPosts(username);
+        const response = await profileApi.getProfile(username);
         setIsFetching(false);
-        if (!response.checkParams) {
+        dispatch(setProfile(response.profile));
+      } catch (e) {
+        setIsFetching(false);
+        if (!e.response.data.checkUsernameParams) {
           history.push('/404');
           return;
         }
-        dispatch(setPosts(response.profile));
-        dispatch(setUser(response));
-      } catch (e) {
-        setIsFetching(false);
-        console.log('error:', e);
+        console.log(e);
       }
     }
     fetchData();

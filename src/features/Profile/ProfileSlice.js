@@ -3,25 +3,21 @@ import { createSlice } from '@reduxjs/toolkit';
 const profile = createSlice({
   name: 'profile',
   initialState: {
-    posts: [],
-    isCurrentUser: false,
-    user: {
-      profilePictureUrl: '',
-      username: '',
+    info: {
+      posts: [],
     },
+    isCurrentUser: false,
   },
   reducers: {
-    setPosts: (state, action) => {
-      state.posts = action.payload.posts;
+    setProfile: (state, action) => {
+      state.info = action.payload;
     },
-    setUser: (state, action) => {
-      state.isCurrentUser = action.payload.isCurrentUser;
-      state.user.profilePictureUrl = action.payload.profile.profilePictureUrl;
-      state.user.username = action.payload.profile.username;
+    checkCurrentUser: (state, action) => {
+      state.isCurrentUser = action.payload;
     },
   },
 });
 
 const { reducer, actions } = profile;
-export const { setPosts, setUser } = actions;
+export const { setProfile, checkCurrentUser } = actions;
 export default reducer;

@@ -8,8 +8,9 @@ import styles from './style.module.scss';
 PostCardImageList.propTypes = {};
 
 function PostCardImageList(props) {
-  const profile = useSelector(state => state.profile);
-  const { posts, isCurrentUser } = profile;
+  const info = useSelector(state => state.profile.info);
+  const isCurrentUser = useSelector(state => state.profile.isCurrentUser);
+  const { posts } = info;
   const postsList = posts.map(item => {
     const { postPictureUrl } = item;
     return (
