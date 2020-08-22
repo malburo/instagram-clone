@@ -1,0 +1,16 @@
+@import '../../../../assets/styles/color';
+.new-password-form {
+  width: 350px;
+  padding: 40px;
+  border: $border-color;
+
+  text-align: center;
+  font-size: 14px;
+  background-color: $white-color;
+  .logo {
+    margin: 10px 0px 30px 0px;
+  }
+  .button {
+    margin: 30px 0px;
+  }
+}
