@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
-import './App.scss';
-import Routes from 'routes';
+import authApi from 'api/authApi';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import API from 'utils/API';
-import { useDispatch } from 'react-redux';
 import { loginSuccess } from 'features/Auth/AuthSlice';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Routes from 'routes';
+import './App.scss';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchData() {
-      if (localStorage.jwtToken) {
-        API.setToken(localStorage.jwtToken);
-      }
-      const response = await API.call('get', 'auth');
+      const response = await authApi.auth();
       dispatch(loginSuccess(response.user));
     }
     fetchData();

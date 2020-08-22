@@ -7,11 +7,13 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import styles from './style.module.scss';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 ChangeAvatarForm.propTypes = {};
 
 function ChangeAvatarForm(props) {
   const { profilePictureUrl } = props;
   const dispatch = useDispatch();
+  const { username } = useParams();
   const initialValues = {
     avatar: null,
   };
@@ -23,7 +25,7 @@ function ChangeAvatarForm(props) {
       const { avatar } = data;
       let formData = new FormData();
       formData.append('avatar', avatar);
-      const response = await profileApi.changeAvatar(formData);
+      const response = await profileApi.changeAvatar(username, formData);
       dispatch(changeAvatar(response.profilePictureUrl));
     } catch (e) {
       console.log(e);

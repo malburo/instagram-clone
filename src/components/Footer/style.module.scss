@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     list-style-type: none;
     margin-bottom: 10px;
@@ -19,7 +19,6 @@
     }
   }
   .malburo {
-    text-align: center;
     p {
       font-size: 12px;
       font-weight: 600;

@@ -9,13 +9,13 @@ import save from 'assets/images/icons/save.png';
 import setting from 'assets/images/icons/setting.svg';
 
 export function LikeIcon(props) {
-  const { isLiked, handleLike, postId } = props;
+  const { isLiked, handleReaction, postId } = props;
   return (
     <img
       src={isLiked ? like : unlike}
       alt="LikeIcon"
       className={styles.icon}
-      onClick={() => handleLike(postId)}
+      onClick={() => handleReaction(postId)}
     />
   );
 }
