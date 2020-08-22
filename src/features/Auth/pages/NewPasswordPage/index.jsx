@@ -3,16 +3,7 @@ import NewPasswordForm from 'features/Auth/components/NewPasswordForm';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import {
-  Col,
-  Container,
-  Row,
-  Alert,
-  Button,
-  Toast,
-  ToastHeader,
-  ToastBody,
-} from 'reactstrap';
+import { Col, Container, Row, Toast, ToastBody, ToastHeader } from 'reactstrap';
 import styles from './style.module.scss';
 VerifyTokenPage.propTypes = {};
 

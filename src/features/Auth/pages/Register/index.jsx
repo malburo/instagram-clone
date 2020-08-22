@@ -1,8 +1,8 @@
+import authApi from 'api/authApi';
 import RegisterForm from 'features/Auth/components/RegisterForm';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
-import API from 'utils/API';
 import styles from './style.module.scss';
 RegisterPage.propTypes = {};
 
@@ -10,12 +10,13 @@ function RegisterPage(props) {
   const history = useHistory();
   const handleSubmit = async (user, actions) => {
     try {
-      await API.call('post', 'auth/register', user);
+      await authApi.register(user);
       actions.setStatus({ isSuccess: true, message: 'Register success !' });
       actions.resetForm();
       history.push('/auth/login');
-    } catch (e) {
-      actions.setErrors({ ...e.response.data });
+    } catch (err) {
+      const { errors } = err.response.data;
+      actions.setErrors({ ...errors });
       actions.setStatus({ isSuccess: false, message: 'Register failed !' });
     }
   };
