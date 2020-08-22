@@ -21,7 +21,7 @@ function UploadField(props) {
   const { field, form, type, disabled } = props;
   const { name } = field;
   const { errors, setFieldValue } = form;
-  const showError = errors[name];
+  const showError = !!errors[name];
 
   return (
     <FormGroup>
