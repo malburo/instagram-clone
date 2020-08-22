@@ -1,0 +1,18 @@
+@import '../../../../assets/styles/color';
+.reset-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &__nav {
+    width: 350px;
+    background-color: $white-color;
+    border: $border-color;
+    padding: 10px 40px;
+    border-top: none;
+
+    text-align: center;
+    font-size: 14px;
+  }
+}
