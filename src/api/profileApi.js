@@ -1,12 +1,12 @@
 import axiosClient from './axiosClient';
 
 const profileApi = {
-  getPosts: username => {
-    const url = `profile/${username}/posts`;
+  getProfile: username => {
+    const url = `profile/${username}`;
     return axiosClient.get(url);
   },
-  changeAvatar: formData => {
-    const url = 'profile/avatar';
+  changeAvatar: (username, formData) => {
+    const url = `profile/${username}/change-avatar`;
     return axiosClient.post(url, formData);
   },
 };

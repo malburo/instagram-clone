@@ -2,24 +2,20 @@ import axiosClient from './axiosClient';
 
 const postsApi = {
   get: () => {
-    const url = 'posts';
+    const url = 'post';
     return axiosClient.get(url);
   },
   createPost: formData => {
-    const url = 'posts/create';
+    const url = 'post/create';
     return axiosClient.post(url, formData);
   },
-  like: postId => {
-    const url = 'likes/like';
-    return axiosClient.post(url, { postId });
-  },
-  unlike: postId => {
-    const url = 'likes/unlike';
-    return axiosClient.post(url, { postId });
+  reaction: (postId, type) => {
+    const url = `post/${postId}/reaction`;
+    return axiosClient.post(url, { type });
   },
   comment: (postId, comment) => {
-    const url = 'comments/create';
-    return axiosClient.post(url, { postId, comment });
+    const url = `post/${postId}/comment`;
+    return axiosClient.post(url, { comment });
   },
 };
 export default postsApi;
