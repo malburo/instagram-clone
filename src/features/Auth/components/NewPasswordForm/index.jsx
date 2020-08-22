@@ -1,7 +1,6 @@
 import InputField from 'custom-field/InputField';
 import { FastField, Form, Formik } from 'formik';
 import React from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
 import styles from './style.module.scss';
