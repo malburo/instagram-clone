@@ -4,6 +4,7 @@ import Container from 'reactstrap/lib/Container';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import styles from './style.module.scss';
+import Footer from 'components/Footer';
 MainLayout.propTypes = {};
 
 function MainLayout(props) {
@@ -15,6 +16,7 @@ function MainLayout(props) {
           <Col>{props.children}</Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }
