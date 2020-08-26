@@ -1,23 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import profileApi from 'api/profileApi';
 
-const profile = createSlice({
-  name: 'profile',
+export const getProfile = createAsyncThunk(
+  'profile/get',
+  async (params, thunkAPI) => {
+    const response = await profileApi.getProfile(params);
+    return response.profile;
+  }
+);
+
+const profileSlice = createSlice({
+  name: 'profileSlice',
   initialState: {
-    info: {
-      posts: [],
-    },
-    isCurrentUser: false,
+    posts: [],
   },
-  reducers: {
-    setProfile: (state, action) => {
-      state.info = action.payload;
-    },
-    checkCurrentUser: (state, action) => {
-      state.isCurrentUser = action.payload;
+  reducers: {},
+  extraReducers: {
+    [getProfile.fulfilled]: (state, action) => {
+      return (state = action.payload);
     },
   },
 });
 
-const { reducer, actions } = profile;
-export const { setProfile, checkCurrentUser } = actions;
-export default reducer;
+const { reducer: profileReducer } = profileSlice;
+export default profileReducer;
