@@ -1,13 +1,17 @@
 import axiosClient from './axiosClient';
 
 const profileApi = {
-  getProfile: username => {
+  getProfile: async payload => {
+    const { username } = payload;
     const url = `profile/${username}`;
-    return axiosClient.get(url);
+    const response = await axiosClient.get(url);
+    return response;
   },
-  changeAvatar: (username, formData) => {
+  changeAvatar: async payload => {
+    const { username, formData } = payload;
     const url = `profile/${username}/change-avatar`;
-    return axiosClient.post(url, formData);
+    const response = await axiosClient.post(url, formData);
+    return response;
   },
 };
 export default profileApi;

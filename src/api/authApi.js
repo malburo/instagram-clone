@@ -1,13 +1,14 @@
 import axiosClient from './axiosClient';
 
-const authApi = {
-  auth: () => {
-    const url = `auth`;
-    return axiosClient.get(url);
+const userApi = {
+  getMe: async () => {
+    const url = 'auth/me';
+    const response = await axiosClient.get(url);
+    return response.data;
   },
-  login: user => {
-    const url = `auth/login`;
-    return axiosClient.post(url, user);
+  login: currentUser => {
+    const url = 'auth/login';
+    return axiosClient.post(url, currentUser);
   },
   register: user => {
     const url = 'auth/register';
@@ -26,4 +27,4 @@ const authApi = {
     return axiosClient.post(url, newPassword);
   },
 };
-export default authApi;
+export default userApi;

@@ -1,21 +1,27 @@
 import axiosClient from './axiosClient';
 
 const postsApi = {
-  get: () => {
+  get: async () => {
     const url = 'post';
-    return axiosClient.get(url);
+    const response = await axiosClient.get(url);
+    return response;
   },
-  createPost: formData => {
+  createPost: async payload => {
     const url = 'post/create';
-    return axiosClient.post(url, formData);
+    const response = await axiosClient.post(url, payload);
+    return response;
   },
-  reaction: (postId, type) => {
+  reaction: async payload => {
+    const { postId, type } = payload;
     const url = `post/${postId}/reaction`;
-    return axiosClient.post(url, { type });
+    const response = await axiosClient.post(url, { type });
+    return response;
   },
-  comment: (postId, comment) => {
+  comment: async payload => {
+    const { postId, comment } = payload;
     const url = `post/${postId}/comment`;
-    return axiosClient.post(url, { comment });
+    const response = await axiosClient.post(url, { comment });
+    return response;
   },
 };
 export default postsApi;
