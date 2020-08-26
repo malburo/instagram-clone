@@ -11,10 +11,10 @@ import styles from './style.module.scss';
 InfoCard.propTypes = {};
 
 function InfoCard(props) {
-  const info = useSelector(state => state.profile.info);
-  const currentUser = useSelector(state => state.auth.user);
-  const { posts, profilePictureUrl, username } = info;
-  const isCurrentUser = useSelector(state => state.profile.isCurrentUser);
+  const profile = useSelector(state => state.profile);
+  const currentUser = useSelector(state => state.user.current);
+
+  const { posts, profilePictureUrl, username, isCurrentUser } = profile;
   return (
     <Row>
       <Col md="4">

@@ -10,7 +10,9 @@ import styles from './style.module.scss';
 EmptyPost.propTypes = {
   isCurrentUser: PropTypes.bool.isRequired,
 };
-
+EmptyPost.defaultProps = {
+  isCurrentUser: false,
+};
 function EmptyPost(props) {
   const { isCurrentUser } = props;
   return (

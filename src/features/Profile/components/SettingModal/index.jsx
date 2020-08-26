@@ -1,4 +1,4 @@
-import { logoutSuccess } from 'features/Auth/AuthSlice';
+import { logout } from 'app/userSlice';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -12,7 +12,7 @@ const SettingModal = props => {
   const toggle = () => setModal(!modal);
   const handleLogout = () => {
     setModal(!modal);
-    dispatch(logoutSuccess());
+    dispatch(logout());
     history.push('/auth/login');
   };
   return (
