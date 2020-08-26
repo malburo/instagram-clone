@@ -1,21 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import postsApi from 'api/postsApi';
 
-const postStore = createSlice({
-  name: 'postStore',
+export const getPosts = createAsyncThunk(
+  'posts/get',
+  async (params, thunkAPI) => {
+    const response = await postsApi.get(params);
+    return response.posts;
+  }
+);
+export const createPost = createAsyncThunk(
+  'posts/createPost',
+  async (params, thunkAPI) => {
+    const response = await postsApi.createPost(params);
+    return response;
+  }
+);
+export const reaction = createAsyncThunk(
+  'posts/reaction',
+  async (params, thunkAPI) => {
+    const response = await postsApi.reaction(params);
+    return response.reaction;
+  }
+);
+export const comment = createAsyncThunk(
+  'posts/comment',
+  async (params, thunkAPI) => {
+    const response = await postsApi.comment(params);
+    return response;
+  }
+);
+const postSlice = createSlice({
+  name: 'posts',
   initialState: [],
-  reducers: {
-    setPost: (state, action) => {
+  reducers: {},
+  extraReducers: {
+    [getPosts.fulfilled]: (state, action) => {
       return (state = action.payload);
     },
-    createPost: (state, action) => {
+    [createPost.fulfilled]: (state, action) => {
       state.unshift(action.payload);
     },
-    deletePost: (state, action) => {
-      return state.filter(state => {
-        return state._id !== action.payload;
-      });
-    },
-    setReaction: (state, action) => {
+    [reaction.fulfilled]: (state, action) => {
       const post = state.find(item => item._id === action.payload.postId);
       if (action.payload.type === 'like') {
         post.reactions.push(action.payload);
@@ -29,19 +54,11 @@ const postStore = createSlice({
       });
       post.reactions.splice(index, 1);
     },
-    setComment: (state, action) => {
-      const post = state.find(item => item._id === action.payload.postId);
-      post.comments.push(action.payload);
+    [comment.fulfilled]: (state, action) => {
+      state.unshift(action.payload);
     },
   },
 });
 
-const { reducer, actions } = postStore;
-export const {
-  setPost,
-  createPost,
-  deletePost,
-  setReaction,
-  setComment,
-} = actions;
-export default reducer;
+const { reducer: postReducer } = postSlice;
+export default postReducer;
