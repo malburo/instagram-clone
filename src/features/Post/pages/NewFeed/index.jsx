@@ -1,14 +1,14 @@
+import { unwrapResult } from '@reduxjs/toolkit';
 import Sider from 'components/Sider';
 import PostCardSkeleton from 'features/Post/components/PostCardSkeleton';
 import PostForm from 'features/Post/components/PostForm';
 import PostList from 'features/Post/components/PostList';
-import { createPost, setPost } from 'features/Post/PostSlice';
+import { createPost, getPosts } from 'features/Post/PostSlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
 import styles from './style.module.scss';
-import postsApi from 'api/postsApi';
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
@@ -19,9 +19,9 @@ function NewfeedPage(props) {
     async function fetchPostList() {
       try {
         setIsFetching(true);
-        const response = await postsApi.get();
+        const postsResult = await dispatch(getPosts());
+        unwrapResult(postsResult);
         setIsFetching(false);
-        dispatch(setPost(response.posts));
       } catch (e) {
         setIsFetching(false);
         console.log(e);
@@ -29,14 +29,14 @@ function NewfeedPage(props) {
     }
     fetchPostList();
   }, [dispatch]);
-  const handleSubmitPostForm = async (newPost, actions) => {
+  const handleSubmitPostForm = async (values, actions) => {
     try {
-      const { caption, file } = newPost;
+      const { caption, file } = values;
       let formData = new FormData();
       formData.append('caption', caption);
       formData.append('postImage', file);
-      const response = await postsApi.createPost(formData);
-      dispatch(createPost(response.newPost));
+      const newPostResult = await dispatch(createPost(formData));
+      unwrapResult(newPostResult);
       actions.resetForm();
     } catch (e) {
       console.log(e);

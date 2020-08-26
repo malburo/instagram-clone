@@ -1,4 +1,4 @@
-import postsApi from 'api/postsApi';
+import { unwrapResult } from '@reduxjs/toolkit';
 import Avatar from 'components/Avatar';
 import {
   CommentIcon,
@@ -7,7 +7,7 @@ import {
   MessageIcon,
   SaveIcon,
 } from 'components/Icon';
-import { setComment, setReaction } from 'features/Post/PostSlice';
+import { reaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,8 +41,8 @@ function PostCard(props) {
   } = props;
 
   const dispatch = useDispatch();
-  const userId = useSelector(state => state.auth.user._id);
-  const isLiked = reactions.find(item => item.userId === userId);
+  const currentUser = useSelector(state => state.user.current);
+  const isLiked = reactions.find(item => item.userId === currentUser.id);
 
   const handleReaction = postId => {
     async function fetchData() {
@@ -51,19 +51,27 @@ function PostCard(props) {
         if (isLiked) {
           type = null;
         }
-        const response = await postsApi.reaction(postId, type);
-        dispatch(setReaction(response.reaction));
+        const payload = {
+          postId,
+          type,
+        };
+        const reactionResult = await dispatch(reaction(payload));
+        unwrapResult(reactionResult);
       } catch (e) {
         console.log(e);
       }
     }
     fetchData();
   };
-  const handleComment = (postId, comment, actions) => {
+  const handleComment = (postId, values, actions) => {
     async function fetchData() {
       try {
-        const response = await postsApi.comment(postId, comment);
-        dispatch(setComment(response.data));
+        const payload = {
+          postId,
+          ...values,
+        };
+        const commentResult = await dispatch(reaction(payload));
+        unwrapResult(commentResult);
         actions.resetForm();
       } catch (e) {
         console.log(e);
