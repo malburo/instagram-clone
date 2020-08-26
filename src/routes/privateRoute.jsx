@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 PrivateRoute.propTypes = {};
 
 function PrivateRoute({ component: Component, layout: Layout, ...rest }) {
-  const token = localStorage.jwtToken;
+  const token = localStorage.access_token;
   return (
     <Route
       {...rest}

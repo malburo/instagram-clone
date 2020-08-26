@@ -7,8 +7,8 @@ import { Col, Container, Row } from 'reactstrap';
 import styles from './style.module.scss';
 
 const Header = () => {
-  const user = useSelector(state => state.auth.user);
-  const { profilePictureUrl } = user;
+  const currentUser = useSelector(state => state.user.current);
+  const { profilePictureUrl, username } = currentUser;
   return (
     <header className={styles.header}>
       <Container>
@@ -26,7 +26,7 @@ const Header = () => {
             />
           </Col>
           <Col xs="auto">
-            <Link to={user.username}>
+            <Link to={username}>
               {profilePictureUrl ? (
                 <Avatar img={profilePictureUrl} size="small" />
               ) : (

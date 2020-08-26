@@ -7,8 +7,8 @@ import styles from './style.module.scss';
 Sider.propTypes = {};
 
 function Sider(props) {
-  const user = useSelector(state => state.auth.user);
-  const { profilePictureUrl, username } = user;
+  const currentUser = useSelector(state => state.user.current);
+  const { profilePictureUrl, username } = currentUser;
   return (
     <div className={styles.wrapper}>
       <div className={styles.info}>

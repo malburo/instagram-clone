@@ -1,16 +1,20 @@
-import authApi from 'api/authApi';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { loginSuccess } from 'features/Auth/AuthSlice';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import Routes from 'routes';
 import './App.scss';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { getMe } from 'app/userSlice';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetchData() {
-      const response = await authApi.auth();
-      dispatch(loginSuccess(response.user));
+      try {
+        const getMeResult = await dispatch(getMe());
+        unwrapResult(getMeResult);
+      } catch (err) {
+        console.log(err);
+      }
     }
     fetchData();
   }, [dispatch]);
