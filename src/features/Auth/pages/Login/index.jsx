@@ -1,5 +1,5 @@
-import authApi from 'api/authApi';
-import { loginSuccess } from 'features/Auth/AuthSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { getMe, login } from 'app/userSlice';
 import LoginForm from 'features/Auth/components/LoginForm';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,13 +9,20 @@ import styles from './style.module.scss';
 LoginPage.propTypes = {};
 
 function LoginPage(props) {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const handleSubmit = async (user, actions) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values, actions) => {
     try {
-      const response = await authApi.login(user);
-      localStorage.setItem('jwtToken', response.accessToken);
-      dispatch(loginSuccess(response.user));
+      const payload = {
+        ...values,
+      };
+      const loginResult = await dispatch(login(payload));
+      unwrapResult(loginResult);
+
+      const getMeResult = await dispatch(getMe());
+      unwrapResult(getMeResult);
+
       history.push('/');
     } catch (err) {
       const { errors } = err.response.data;

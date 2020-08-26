@@ -1,6 +1,8 @@
-import authApi from 'api/authApi';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { getMe, register } from 'app/userSlice';
 import RegisterForm from 'features/Auth/components/RegisterForm';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { Col, Container, Row } from 'reactstrap';
 import styles from './style.module.scss';
@@ -8,16 +10,23 @@ RegisterPage.propTypes = {};
 
 function RegisterPage(props) {
   const history = useHistory();
-  const handleSubmit = async (user, actions) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values, actions) => {
     try {
-      await authApi.register(user);
-      actions.setStatus({ isSuccess: true, message: 'Register success !' });
-      actions.resetForm();
-      history.push('/auth/login');
+      const payload = {
+        ...values,
+      };
+      const registerResult = await dispatch(register(payload));
+      unwrapResult(registerResult);
+
+      const getMeResult = await dispatch(getMe());
+      unwrapResult(getMeResult);
+
+      history.push('/');
     } catch (err) {
       const { errors } = err.response.data;
       actions.setErrors({ ...errors });
-      actions.setStatus({ isSuccess: false, message: 'Register failed !' });
     }
   };
   return (
