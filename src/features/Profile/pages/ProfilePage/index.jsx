@@ -1,10 +1,10 @@
-import profileApi from 'api/profileApi';
+import { unwrapResult } from '@reduxjs/toolkit';
 import InfoCard from 'features/Profile/components/InfoCard';
 import PostCardImageList from 'features/Profile/components/PostCardImageList';
 import PostListSkeleton from 'features/Profile/components/PostListSkeleton';
-import { checkCurrentUser, setProfile } from 'features/Profile/ProfileSlice';
+import { getProfile } from 'features/Profile/ProfileSlice';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   useHistory,
   useParams,
@@ -17,28 +17,25 @@ function ProfilePage(props) {
   const [isFetching, setIsFetching] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const currentUser = useSelector(state => state.auth.user);
   const { username } = useParams();
-
-  useEffect(() => {
-    const isCurrentUser = currentUser.username === username;
-    dispatch(checkCurrentUser(isCurrentUser));
-  }, [dispatch, currentUser, username]);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        const payload = {
+          username,
+        };
         setIsFetching(true);
-        const response = await profileApi.getProfile(username);
+        const profileResult = await dispatch(getProfile(payload));
+        unwrapResult(profileResult);
         setIsFetching(false);
-        dispatch(setProfile(response.profile));
       } catch (e) {
         setIsFetching(false);
+        console.log(e);
         if (!e.response.data.checkUsernameParams) {
           history.push('/404');
           return;
         }
-        console.log(e);
       }
     }
     fetchData();
