@@ -10,21 +10,29 @@ export const getMe = createAsyncThunk('user/getMe', async params => {
 export const login = createAsyncThunk(
   'user/login',
   async (params, thunkAPI) => {
-    const response = await authApi.login(params);
+    try {
+      const response = await authApi.login(params);
 
-    // Save access token to local storage
-    const { access_token } = response;
-    localStorage.setItem('access_token', access_token);
+      // Save access token to local storage
+      const { access_token } = response;
+      localStorage.setItem('access_token', access_token);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response);
+    }
   }
 );
 export const register = createAsyncThunk(
   'user/register',
   async (params, thunkAPI) => {
-    const response = await authApi.register(params);
+    try {
+      const response = await authApi.register(params);
 
-    // Save access token to local storage
-    const { access_token } = response;
-    localStorage.setItem('access_token', access_token);
+      // Save access token to local storage
+      const { access_token } = response;
+      localStorage.setItem('access_token', access_token);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response);
+    }
   }
 );
 

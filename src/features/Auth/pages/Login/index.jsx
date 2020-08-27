@@ -18,15 +18,16 @@ function LoginPage(props) {
         ...values,
       };
       const loginResult = await dispatch(login(payload));
-      unwrapResult(loginResult);
+      if (!login.fulfilled.match(loginResult)) {
+        actions.setErrors({ ...loginResult.payload.data });
+      }
 
       const getMeResult = await dispatch(getMe());
       unwrapResult(getMeResult);
 
       history.push('/');
     } catch (err) {
-      const { errors } = err.response.data;
-      actions.setErrors({ ...errors });
+      console.log(err);
     }
   };
   return (

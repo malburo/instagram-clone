@@ -18,15 +18,16 @@ function RegisterPage(props) {
         ...values,
       };
       const registerResult = await dispatch(register(payload));
-      unwrapResult(registerResult);
+      // handle action register custom error
+      if (!register.fulfilled.match(registerResult)) {
+        actions.setErrors({ ...registerResult.payload.data.errors });
+      }
 
       const getMeResult = await dispatch(getMe());
       unwrapResult(getMeResult);
-
       history.push('/');
     } catch (err) {
-      const { errors } = err.response.data;
-      actions.setErrors({ ...errors });
+      console.log(err);
     }
   };
   return (
