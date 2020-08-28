@@ -7,7 +7,7 @@ import {
   MessageIcon,
   SaveIcon,
 } from 'components/Icon';
-import { reaction } from 'features/Post/PostSlice';
+import { reaction, comment } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,7 +43,6 @@ function PostCard(props) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.current);
   const isLiked = reactions.find(item => item.userId === currentUser.id);
-
   const handleReaction = postId => {
     async function fetchData() {
       try {
@@ -63,14 +62,14 @@ function PostCard(props) {
     }
     fetchData();
   };
-  const handleComment = (postId, values, actions) => {
+  const handleComment = (postId, content, actions) => {
     async function fetchData() {
       try {
         const payload = {
           postId,
-          ...values,
+          content,
         };
-        const commentResult = await dispatch(reaction(payload));
+        const commentResult = await dispatch(comment(payload));
         unwrapResult(commentResult);
         actions.resetForm();
       } catch (e) {

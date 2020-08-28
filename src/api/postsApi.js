@@ -1,9 +1,9 @@
 import axiosClient from './axiosClient';
 
 const postsApi = {
-  get: async () => {
+  get: async params => {
     const url = 'post';
-    const response = await axiosClient.get(url);
+    const response = await axiosClient.get(url, { params });
     return response;
   },
   createPost: async payload => {
@@ -18,9 +18,9 @@ const postsApi = {
     return response;
   },
   comment: async payload => {
-    const { postId, comment } = payload;
+    const { postId, content } = payload;
     const url = `post/${postId}/comment`;
-    const response = await axiosClient.post(url, { comment });
+    const response = await axiosClient.post(url, { content });
     return response;
   },
 };
