@@ -6,11 +6,14 @@ NotFound.propTypes = {};
 function NotFound() {
   return (
     <div className={styles.wrapper}>
-      <h1>Whoops!</h1>
-      <p>Something went wrong</p>
-      <Link to="/">
-        <button>Return Home</button>
-      </Link>
+      <p className={styles.title}>Sorry, this page isn't available.</p>
+      <p className={styles.subTitle}>
+        The link you followed may be broken, or the page may have been removed.
+        Go back to{' '}
+        <Link to="/">
+          <span>Instagram</span>
+        </Link>
+      </p>
     </div>
   );
 }

@@ -1,24 +1,12 @@
 .wrapper {
-  font-family: monospace !important;
-  width: 100vw;
-  min-height: 100vh;
-  background-color: #f2eee8;
+  margin-top: 140px;
+  height: 72vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  h1 {
-    font: 4em Roboto;
-  }
-  p {
-    display: inline-block;
-    margin: 0.2em 3rem;
-    font: 2em Roboto;
-  }
-  button {
-    margin-top: 30px;
-    padding: 10px 20px;
-    background-color: white;
-    font-size: 16px;
+  .title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
   }
 }
