@@ -1,4 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit';
+import { Carousel } from 'antd';
 import Avatar from 'components/Avatar';
 import {
   CommentIcon,
@@ -7,7 +8,7 @@ import {
   MessageIcon,
   SaveIcon,
 } from 'components/Icon';
-import { reaction, comment } from 'features/Post/PostSlice';
+import { comment, reaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ PostCard.propTypes = {
   likes: PropTypes.array,
   comments: PropTypes.array,
   profilePictureUrl: PropTypes.string.isRequired,
-  postPictureUrl: PropTypes.string.isRequired,
+  postListPictureUrl: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
 };
 PostCard.defaultProps = {
@@ -34,7 +35,7 @@ function PostCard(props) {
     reactions,
     comments,
     profilePictureUrl,
-    postPictureUrl,
+    postListPictureUrl,
     username,
     postId,
     caption,
@@ -78,6 +79,7 @@ function PostCard(props) {
     }
     fetchData();
   };
+
   return (
     <div className={styles['post-card']} style={{ backgroundColor: '#fff' }}>
       <div className={styles['post-card__header']}>
@@ -90,11 +92,20 @@ function PostCard(props) {
         <DotIcon />
       </div>
       <div>
-        <img
-          src={postPictureUrl}
-          alt="postImage"
-          className={styles['post-card__image']}
-        />
+        <Carousel infinite adaptiveHeight draggable focusOnSelect fade>
+          {postListPictureUrl.map(item => {
+            const { _id, url } = item;
+            return (
+              <div key={_id}>
+                <img
+                  src={url}
+                  alt="postImage"
+                  className={styles['post-card__image']}
+                />
+              </div>
+            );
+          })}
+        </Carousel>
       </div>
       <div className={styles['post-card__footer']}>
         <div className={styles['list-icon']}>
