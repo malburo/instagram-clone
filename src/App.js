@@ -5,6 +5,7 @@ import './App.scss';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { getMe } from 'app/userSlice';
+import 'antd/dist/antd.css';
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
