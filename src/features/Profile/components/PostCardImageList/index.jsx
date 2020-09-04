@@ -10,11 +10,11 @@ PostCardImageList.propTypes = {};
 function PostCardImageList(props) {
   const profile = useSelector(state => state.profile);
   const { posts, isCurrentUser } = profile;
-  const postsList = posts.map(item => {
-    const { postPictureUrl } = item;
+  const postsList = posts.map(post => {
+    const { postListPictureUrl, id } = post;
     return (
-      <Col xs="4" key={item._id}>
-        <PostCardImage postPictureUrl={postPictureUrl} key={item._id} />
+      <Col xs="4" key={id}>
+        <PostCardImage postListPictureUrl={postListPictureUrl} key={id} />
       </Col>
     );
   });

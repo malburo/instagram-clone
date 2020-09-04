@@ -1,7 +1,6 @@
 import Avatar from 'components/Avatar';
 import { SettingIcon } from 'components/Icon';
 import React from 'react';
-import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 import { Col, Row } from 'reactstrap';
 import ChangeAvatarForm from '../ChangeAvatarForm';
@@ -19,21 +18,12 @@ function InfoCard(props) {
     <Row>
       <Col md="4">
         <div className={styles.avatar}>
-          {profilePictureUrl ? (
-            isCurrentUser ? (
-              <ChangeAvatarForm
-                profilePictureUrl={currentUser.profilePictureUrl}
-              />
-            ) : (
-              <Avatar img={profilePictureUrl} />
-            )
-          ) : (
-            <Skeleton
-              circle={true}
-              height={150}
-              width={150}
-              style={{ marginTop: 24 }}
+          {isCurrentUser ? (
+            <ChangeAvatarForm
+              profilePictureUrl={currentUser.profilePictureUrl}
             />
+          ) : (
+            <Avatar img={profilePictureUrl} />
           )}
         </div>
       </Col>
@@ -43,7 +33,7 @@ function InfoCard(props) {
             <Col>
               <div className={styles.info}>
                 <div className={styles.name}>
-                  {username ? <p>{username}</p> : <Skeleton width={100} />}
+                  <p>{username}</p>
                 </div>
                 <div className={styles.icon}>
                   {isCurrentUser && (

@@ -1,5 +1,5 @@
-import { unwrapResult } from '@reduxjs/toolkit';
 import InfoCard from 'features/Profile/components/InfoCard';
+import InfoCardSkeleton from 'features/Profile/components/InfoCardSkeleton';
 import PostCardImageList from 'features/Profile/components/PostCardImageList';
 import PostListSkeleton from 'features/Profile/components/PostListSkeleton';
 import { getProfile } from 'features/Profile/ProfileSlice';
@@ -14,7 +14,7 @@ import styles from './style.module.scss';
 
 ProfilePage.propTypes = {};
 function ProfilePage(props) {
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
   const { username } = useParams();
@@ -22,20 +22,21 @@ function ProfilePage(props) {
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsFetching(true);
         const payload = {
           username,
         };
-        setIsFetching(true);
         const profileResult = await dispatch(getProfile(payload));
-        unwrapResult(profileResult);
+        if (!getProfile.fulfilled.match(profileResult)) {
+          if (!profileResult.payload.data.checkUsernameParams) {
+            history.push('/404');
+            return;
+          }
+        }
         setIsFetching(false);
       } catch (e) {
         setIsFetching(false);
         console.log(e);
-        if (!e.response.data.checkUsernameParams) {
-          history.push('/404');
-          return;
-        }
       }
     }
     fetchData();
@@ -43,9 +44,7 @@ function ProfilePage(props) {
   return (
     <div style={{ paddingTop: 100 }} className={styles.wrapper}>
       <Row>
-        <Col>
-          <InfoCard />
-        </Col>
+        <Col>{isFetching ? <InfoCardSkeleton /> : <InfoCard />}</Col>
       </Row>
       <hr />
       <Row>
