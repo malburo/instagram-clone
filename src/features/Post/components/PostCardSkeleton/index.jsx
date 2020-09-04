@@ -1,9 +1,9 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import styles from './style.module.scss';
-PostCard.propTypes = {};
-PostCard.defaultProps = {};
-function PostCard(props) {
+PostCardSkeleton.propTypes = {};
+
+function PostCardSkeleton(props) {
   return (
     <div className={styles['post-card']}>
       <div className={styles['post-card__header']}>
@@ -26,4 +26,4 @@ function PostCard(props) {
   );
 }
 
-export default PostCard;
+export default PostCardSkeleton;

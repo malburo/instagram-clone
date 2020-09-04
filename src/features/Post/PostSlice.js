@@ -1,8 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import postsApi from 'api/postsApi';
 
-export const getPosts = createAsyncThunk(
+export const getPostByLimit = createAsyncThunk(
   'posts/get',
+  async (params, thunkAPI) => {
+    const response = await postsApi.get(params);
+    return response;
+  }
+);
+export const getPostScroll = createAsyncThunk(
+  'posts/getPostScroll',
   async (params, thunkAPI) => {
     const response = await postsApi.get(params);
     return response.posts;
@@ -12,7 +19,7 @@ export const createPost = createAsyncThunk(
   'posts/createPost',
   async (params, thunkAPI) => {
     const response = await postsApi.createPost(params);
-    return response;
+    return response.newPost;
   }
 );
 export const reaction = createAsyncThunk(
@@ -26,22 +33,31 @@ export const comment = createAsyncThunk(
   'posts/comment',
   async (params, thunkAPI) => {
     const response = await postsApi.comment(params);
-    return response;
+    return response.newComment;
   }
 );
 const postSlice = createSlice({
   name: 'posts',
-  initialState: [],
+  initialState: {
+    postList: [],
+    totalPost: 0,
+  },
   reducers: {},
   extraReducers: {
-    [getPosts.fulfilled]: (state, action) => {
-      return (state = action.payload);
+    [getPostByLimit.fulfilled]: (state, action) => {
+      state.totalPost = action.payload.totalPost;
+      state.postList = action.payload.posts;
+    },
+    [getPostScroll.fulfilled]: (state, action) => {
+      state.postList.push(...action.payload);
     },
     [createPost.fulfilled]: (state, action) => {
-      state.unshift(action.payload);
+      state.postList.unshift(action.payload);
     },
     [reaction.fulfilled]: (state, action) => {
-      const post = state.find(item => item._id === action.payload.postId);
+      const post = state.postList.find(
+        item => item._id === action.payload.postId
+      );
       if (action.payload.type === 'like') {
         post.reactions.push(action.payload);
         return;
@@ -55,7 +71,10 @@ const postSlice = createSlice({
       post.reactions.splice(index, 1);
     },
     [comment.fulfilled]: (state, action) => {
-      state.unshift(action.payload);
+      const post = state.postList.find(
+        item => item._id === action.payload.postId
+      );
+      post.comments.push(action.payload);
     },
   },
 });
