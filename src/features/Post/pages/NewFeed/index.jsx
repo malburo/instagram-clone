@@ -3,38 +3,61 @@ import Sider from 'components/Sider';
 import PostCardSkeleton from 'features/Post/components/PostCardSkeleton';
 import PostForm from 'features/Post/components/PostForm';
 import PostList from 'features/Post/components/PostList';
-import { createPost, getPosts } from 'features/Post/PostSlice';
+import {
+  createPost,
+  getPostByLimit,
+  getPostScroll,
+} from 'features/Post/PostSlice';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container, Row } from 'reactstrap';
 import Col from 'reactstrap/lib/Col';
 import styles from './style.module.scss';
+
 NewfeedPage.propTypes = {};
 
 function NewfeedPage(props) {
-  const [isFetching, setIsFetching] = useState(false);
+  const posts = useSelector(state => state.posts);
+  const [filters, setFilters] = useState(() => {
+    return {
+      limit: 3,
+      skip: 3,
+    };
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchPostList() {
       try {
-        setIsFetching(true);
-        const postsResult = await dispatch(getPosts());
+        const postsResult = await dispatch(
+          getPostByLimit({ limit: 3, skip: 0 })
+        );
         unwrapResult(postsResult);
-        setIsFetching(false);
       } catch (e) {
-        setIsFetching(false);
         console.log(e);
       }
     }
     fetchPostList();
   }, [dispatch]);
+
+  const fetchMoreData = async () => {
+    setFilters(prevState => {
+      return {
+        ...filters,
+        skip: prevState.skip + prevState.limit,
+      };
+    });
+    const postsResult = await dispatch(getPostScroll(filters));
+    unwrapResult(postsResult);
+  };
   const handleSubmitPostForm = async (values, actions) => {
     try {
       const { caption, file } = values;
       let formData = new FormData();
+      for (let i = 0; i < file.length; i++) {
+        formData.append('files', file[i].originFileObj);
+      }
       formData.append('caption', caption);
-      formData.append('postImage', file);
       const newPostResult = await dispatch(createPost(formData));
       unwrapResult(newPostResult);
       actions.resetForm();
@@ -52,7 +75,13 @@ function NewfeedPage(props) {
             </Col>
           </Row>
           <Row>
-            <Col>{isFetching ? <PostCardSkeleton /> : <PostList />}</Col>
+            <Col>
+              {posts.postList.length === 0 ? (
+                <PostCardSkeleton />
+              ) : (
+                <PostList fetchMoreData={fetchMoreData} posts={posts} />
+              )}
+            </Col>
           </Row>
         </Col>
         <Col lg={4} className="d-none d-lg-block">

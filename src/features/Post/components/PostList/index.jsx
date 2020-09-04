@@ -1,27 +1,49 @@
+import PostCardSkeleton from 'features/Post/components/PostCardSkeleton';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import PostCard from '../PostCard';
-
 PostList.propTypes = {};
 
 function PostList(props) {
-  const posts = useSelector(state => state.posts);
-  const postsList = posts.map(post => {
-    const { userId, postPictureUrl, caption, reactions, comments, _id } = post;
+  const { fetchMoreData, posts } = props;
+  const { postList, totalPost } = posts;
+  const postsList = postList.map(post => {
+    const {
+      userId,
+      postListPictureUrl,
+      caption,
+      reactions,
+      comments,
+      id,
+    } = post;
+    const { profilePictureUrl, username } = userId;
     return (
       <PostCard
-        key={_id}
-        postId={_id}
-        profilePictureUrl={userId.profilePictureUrl}
-        username={userId.username}
-        postPictureUrl={postPictureUrl}
+        key={id}
+        username={username}
+        postListPictureUrl={postListPictureUrl}
+        postId={id}
+        profilePictureUrl={profilePictureUrl}
         caption={caption}
         reactions={reactions}
         comments={comments}
       />
     );
   });
-  return <div>{postsList}</div>;
+  return (
+    <InfiniteScroll
+      dataLength={postsList.length}
+      next={fetchMoreData}
+      hasMore={postsList.length < totalPost}
+      loader={<PostCardSkeleton />}
+      endMessage={
+        <p style={{ textAlign: 'center' }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }>
+      {postsList}
+    </InfiniteScroll>
+  );
 }
 
 export default PostList;
