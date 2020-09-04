@@ -1,9 +1,25 @@
-.post-form {
+@import '../../../../assets/styles/color';
+.wrapper {
   max-width: 600px;
   margin: 0 auto;
   border: 1px solid #efefef;
   margin-bottom: 50px;
   background-color: #fff;
-  padding: 20px;
   border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  .header {
+    width: 100%;
+    background-color: #ededed;
+    padding: 5px 20px;
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+    font-weight: 600;
+    color: #8d8d8d;
+  }
+
+  .post-form {
+    padding: 10px 20px 20px 20px;
+
+    .button {
+      margin-top: 12px;
+    }
+  }
 }

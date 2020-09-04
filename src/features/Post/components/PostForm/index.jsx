@@ -36,29 +36,32 @@ function PostForm(props) {
       {formik => {
         const { isSubmitting, values, errors } = formik;
         return (
-          <Form className={styles['post-form']}>
-            <FastField
-              name="caption"
-              component={InputField}
-              placeholder="Bạn đang nghĩ gì vậy ?"
-            />
-            <FastField
-              type="file"
-              name="file"
-              component={UploadField}
-              key={fileInputKey}
-            />
-            <FormGroup>
-              <Button
-                type="submit"
-                color="primary"
-                className={styles.button}
-                disabled={values.file === null || errors.file}
-                block>
-                {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
-              </Button>
-            </FormGroup>
-          </Form>
+          <div className={styles.wrapper}>
+            <p className={styles.header}>Tạo bài viết mới</p>
+            <Form className={styles['post-form']}>
+              <FastField
+                name="caption"
+                component={InputField}
+                placeholder="Bạn đang nghĩ gì vậy ?"
+              />
+              <FastField
+                type="file"
+                name="file"
+                component={UploadField}
+                key={fileInputKey}
+              />
+              <FormGroup>
+                <Button
+                  type="submit"
+                  color="primary"
+                  className={styles.button}
+                  disabled={values.file === null || errors.file}
+                  block>
+                  {isSubmitting ? <Spinner size="sm" /> : 'Đăng'}
+                </Button>
+              </FormGroup>
+            </Form>
+          </div>
         );
       }}
     </Formik>
