@@ -1,4 +1,4 @@
-import Avatar from 'components/Avatar';
+import DropdownAvatar from 'components/DropdownAvatar';
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
@@ -26,13 +26,14 @@ const Header = () => {
             />
           </Col>
           <Col xs="auto">
-            <Link to={username}>
-              {profilePictureUrl ? (
-                <Avatar img={profilePictureUrl} size="small" />
-              ) : (
-                <Skeleton circle={true} height={32} width={32} />
-              )}
-            </Link>
+            {profilePictureUrl ? (
+              <DropdownAvatar
+                profilePictureUrl={profilePictureUrl}
+                username={username}
+              />
+            ) : (
+              <Skeleton circle={true} height={32} width={32} />
+            )}
           </Col>
         </Row>
       </Container>

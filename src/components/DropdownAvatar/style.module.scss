@@ -1,0 +1,20 @@
+.menu {
+  li {
+    position: relative;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    height: 36px;
+    transition: all 0s !important;
+  }
+  a {
+    position: absolute;
+    top: 7px;
+    bottom: 0;
+    right: 0;
+    left: 32px;
+  }
+  span {
+    font-size: 13px;
+  }
+}
