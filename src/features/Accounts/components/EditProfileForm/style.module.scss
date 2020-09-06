@@ -1,0 +1,13 @@
+.edit-profile-form {
+  margin-top: 20px;
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    p {
+      margin-top: 10px;
+    }
+  }
+  button {
+    margin-top: 30px;
+  }
+}
