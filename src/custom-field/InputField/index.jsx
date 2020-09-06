@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 import { ErrorMessage } from 'formik';
-
+import styles from './style.module.scss';
 InputField.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
@@ -36,9 +36,14 @@ function InputField(props) {
         disabled={disabled}
         placeholder={placeholder}
         invalid={showError}
+        className={styles.input}
       />
 
-      <ErrorMessage name={name} component={FormFeedback} />
+      <ErrorMessage
+        name={name}
+        component={FormFeedback}
+        styles={{ paddingRight: 0 }}
+      />
     </FormGroup>
   );
 }
