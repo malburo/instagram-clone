@@ -15,11 +15,18 @@ import NewFeedLayout from 'components/Layouts/NewFeedLayout';
 const Auth = React.lazy(() => import('features/Auth'));
 const Post = React.lazy(() => import('features/Post'));
 const Profile = React.lazy(() => import('features/Profile'));
+const Accounts = React.lazy(() => import('features/Accounts'));
 function Routes() {
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />}>
         <Switch>
+          <PrivateRoute
+            exact
+            path="/"
+            component={Post}
+            layout={NewFeedLayout}
+          />
           <PublicRoute
             exact
             path="/404"
@@ -28,16 +35,14 @@ function Routes() {
           />
           <PublicRoute path="/auth" component={Auth} layout={BlankLayout} />
           <PrivateRoute
-            exact
-            path="/:username"
-            component={Profile}
+            path="/accounts"
+            component={Accounts}
             layout={MainLayout}
           />
           <PrivateRoute
-            exact
-            path="/"
-            component={Post}
-            layout={NewFeedLayout}
+            path="/:username"
+            component={Profile}
+            layout={MainLayout}
           />
           <Route component={NotFound} />
         </Switch>
