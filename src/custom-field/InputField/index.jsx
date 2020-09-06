@@ -39,11 +39,7 @@ function InputField(props) {
         className={styles.input}
       />
 
-      <ErrorMessage
-        name={name}
-        component={FormFeedback}
-        styles={{ paddingRight: 0 }}
-      />
+      <ErrorMessage name={name} component={FormFeedback} />
     </FormGroup>
   );
 }
