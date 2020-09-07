@@ -5,7 +5,12 @@ import { Button, FormGroup, Spinner } from 'reactstrap';
 import * as Yup from 'yup';
 import styles from './style.module.scss';
 
-const EditProfileForm = props => {
+import PropTypes from 'prop-types';
+
+EditProfileForm.propTypes = {
+  onSubmit: PropTypes.func,
+};
+function EditProfileForm(props) {
   const { currentUser, onSubmit } = props;
   const { fullname, username, email } = currentUser;
   const initialValues = {
@@ -24,16 +29,14 @@ const EditProfileForm = props => {
       .required('This field is required.')
       .min(3, 'Your email is too short'),
   });
-  const handleSubmit = values => {
-    console.log(values);
-  };
+
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize={true}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}>
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values, errors, isValid }) => (
         <Form className={styles['edit-profile-form']}>
           <div className={styles['edit-profile-form__item']}>
             <p>Fullname</p>
@@ -61,7 +64,14 @@ const EditProfileForm = props => {
             />
           </div>
           <FormGroup>
-            <Button type="submit" color="primary" className={styles.button}>
+            <Button
+              type="submit"
+              color="primary"
+              className={styles.button}
+              disabled={
+                Object.entries(values).toString() ===
+                  Object.entries(initialValues).toString() || !isValid
+              }>
               {isSubmitting ? <Spinner size="sm" /> : 'Submit'}
             </Button>
           </FormGroup>
@@ -69,5 +79,5 @@ const EditProfileForm = props => {
       )}
     </Formik>
   );
-};
+}
 export default EditProfileForm;
