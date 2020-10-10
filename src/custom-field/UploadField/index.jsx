@@ -19,10 +19,9 @@ UploadField.defaultProps = {
 };
 
 function UploadField(props) {
-  const { field, form, type, disabled } = props;
+  const { field, form, type } = props;
   const { name } = field;
-  const { errors, setFieldValue } = form;
-  const showError = !!errors[name];
+  const { setFieldValue } = form;
 
   const [fileList, setFileList] = useState([]);
   const [previewVisible, setPreviewVisible] = useState(false);
