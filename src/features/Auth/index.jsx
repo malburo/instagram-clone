@@ -10,6 +10,7 @@ import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
 import ResetPasswordPage from './pages/ResetPassword';
 import NewPasswordPage from './pages/NewPasswordPage';
+import MainLayout from 'components/Layouts/MainLayout';
 Auth.propTypes = {};
 
 function Auth(props) {
@@ -29,7 +30,7 @@ function Auth(props) {
         path={`${match.url}/reset/:token`}
         component={NewPasswordPage}
       />
-      <Route component={NotFound} />
+      <Route component={NotFound} layout={MainLayout} />
     </Switch>
   );
 }

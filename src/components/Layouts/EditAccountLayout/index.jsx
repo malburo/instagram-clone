@@ -9,18 +9,11 @@ EditAccountLayout.propTypes = {};
 
 function EditAccountLayout({ children }) {
   const match = useRouteMatch();
-  const handleClick = e => {
-    console.log('click ', e);
-  };
   return (
     <Container>
       <Row className={styles.wrapper}>
         <Col md={4}>
-          <Menu
-            onClick={handleClick}
-            style={{ width: 256 }}
-            selectedKeys={match.path}
-            mode="inline">
+          <Menu style={{ width: 256 }} selectedKeys={match.path} mode="inline">
             <Menu.ItemGroup key="g1">
               <Menu.Item key="/accounts/edit">
                 <Link to="/accounts/edit">Edit Profile</Link>

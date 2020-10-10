@@ -4,7 +4,7 @@ const userApi = {
   getMe: async () => {
     const url = 'auth/me';
     const response = await axiosClient.get(url);
-    return response.data;
+    return response;
   },
   login: currentUser => {
     const url = 'auth/login';

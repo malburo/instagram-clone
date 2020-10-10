@@ -5,35 +5,35 @@ export const getPostByLimit = createAsyncThunk(
   'posts/get',
   async (params, thunkAPI) => {
     const response = await postsApi.get(params);
-    return response;
+    return response.data;
   }
 );
 export const getPostScroll = createAsyncThunk(
   'posts/getPostScroll',
   async (params, thunkAPI) => {
     const response = await postsApi.get(params);
-    return response.posts;
+    return response.data.posts;
   }
 );
 export const createPost = createAsyncThunk(
   'posts/createPost',
   async (params, thunkAPI) => {
     const response = await postsApi.createPost(params);
-    return response.newPost;
+    return response.data.newPost;
   }
 );
 export const reaction = createAsyncThunk(
   'posts/reaction',
   async (params, thunkAPI) => {
     const response = await postsApi.reaction(params);
-    return response.reaction;
+    return response.data.reaction;
   }
 );
 export const comment = createAsyncThunk(
   'posts/comment',
   async (params, thunkAPI) => {
     const response = await postsApi.comment(params);
-    return response.newComment;
+    return response.data.newComment;
   }
 );
 const postSlice = createSlice({
@@ -55,6 +55,7 @@ const postSlice = createSlice({
       state.postList.unshift(action.payload);
     },
     [reaction.fulfilled]: (state, action) => {
+      console.log(state);
       const post = state.postList.find(
         item => item._id === action.payload.postId
       );
@@ -71,9 +72,9 @@ const postSlice = createSlice({
       post.reactions.splice(index, 1);
     },
     [comment.fulfilled]: (state, action) => {
-      const post = state.postList.find(
-        item => item._id === action.payload.postId
-      );
+      const post = state.postList.find(item => {
+        return item._id === action.payload.postId;
+      });
       post.comments.push(action.payload);
     },
   },

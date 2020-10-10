@@ -42,7 +42,7 @@ function ProfilePage(props) {
     fetchData();
   }, [dispatch, history, username]);
   return (
-    <div style={{ paddingTop: 100 }} className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <Row>
         <Col>{isFetching ? <InfoCardSkeleton /> : <InfoCard />}</Col>
       </Row>

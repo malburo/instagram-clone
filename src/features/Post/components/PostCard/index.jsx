@@ -1,13 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Carousel } from 'antd';
-import Avatar from 'components/Avatar';
-import {
-  CommentIcon,
-  DotIcon,
-  LikeIcon,
-  MessageIcon,
-  SaveIcon,
-} from 'components/Icon';
+import { CommentIcon, LikeIcon, MessageIcon, SaveIcon } from 'components/Icon';
 import { comment, reaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -15,7 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Comment from '../Comment';
 import CommentForm from '../CommentForm';
+import SettingPost from '../SettingPost';
 import styles from './style.module.scss';
+import Avatar from 'components/Avatar';
 
 PostCard.propTypes = {
   isLiked: PropTypes.bool,
@@ -89,7 +84,7 @@ function PostCard(props) {
           </Link>
           <Link to={username}>{username}</Link>
         </div>
-        <DotIcon />
+        <SettingPost />
       </div>
       <div>
         <Carousel infinite adaptiveHeight draggable focusOnSelect fade>

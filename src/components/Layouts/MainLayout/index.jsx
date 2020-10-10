@@ -13,7 +13,7 @@ function MainLayout(props) {
       <Header />
       <Container>
         <Row>
-          <Col>{props.children}</Col>
+          <Col className={styles['main-layout__body']}>{props.children}</Col>
         </Row>
       </Container>
       <Footer />

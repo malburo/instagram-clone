@@ -26,10 +26,10 @@ function DropdownAvatar({ profilePictureUrl, username }) {
   const menu = (
     <Menu className={styles.menu}>
       <Menu.Item key="0" icon={<UserOutlined />}>
-        <Link to={username}>Profile</Link>
+        <Link to={`/${username}`}>Profile</Link>
       </Menu.Item>
       <Menu.Item key="1" icon={<SettingOutlined />}>
-        <Link to={username}>Setting</Link>
+        <Link to="/accounts/edit">Setting</Link>
       </Menu.Item>
       <Menu.Item key="3" icon={<LogoutOutlined />} onClick={handleLogout}>
         Logout

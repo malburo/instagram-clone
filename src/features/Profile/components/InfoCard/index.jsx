@@ -1,11 +1,11 @@
-import Avatar from 'components/Avatar';
 import { SettingIcon } from 'components/Icon';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Row } from 'reactstrap';
-import ChangeAvatarForm from '../ChangeAvatarForm';
+import ChangeAvatarForm from '../../../Accounts/components/ChangeAvatarForm';
 import SettingModal from '../SettingModal';
 import styles from './style.module.scss';
+import Avatar from 'components/Avatar';
 
 InfoCard.propTypes = {};
 
