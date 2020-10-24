@@ -4,7 +4,7 @@ import Avatar from 'components/Avatar';
 import { CommentIcon, LikeIcon, MessageIcon, SaveIcon } from 'components/Icon';
 import { comment, reaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Comment from '../Comment';
@@ -36,11 +36,17 @@ function PostCard(props) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.current);
   const isLiked = reactions.find(item => item.userId === currentUser.id);
+  const [isLoading, setIsLoading] = useState(false);
   const handleReaction = postId => {
     async function fetchData() {
       try {
+        if(isLoading){
+          return;
+        }
+        setIsLoading(true);
         const reactionResult = await dispatch(reaction({postId}));
         unwrapResult(reactionResult)
+        setIsLoading(false);
       } catch (e) {
         console.log(e);
       }
