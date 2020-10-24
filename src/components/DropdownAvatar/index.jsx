@@ -1,14 +1,14 @@
 import {
   LogoutOutlined,
   SettingOutlined,
-  UserOutlined,
+  UserOutlined
 } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
+import store from 'app/store';
 import { logout } from 'app/userSlice';
 import Avatar from 'components/Avatar';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import styles from './style.module.scss';
@@ -18,9 +18,8 @@ DropdownAvatar.propTypes = {
 
 function DropdownAvatar({ profilePictureUrl, username }) {
   const history = useHistory();
-  const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logout());
+    store.dispatch(logout());
     history.push('/auth/login');
   };
   const menu = (

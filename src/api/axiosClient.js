@@ -1,3 +1,5 @@
+import store from 'app/store';
+import { logout } from 'app/userSlice';
 import axios from 'axios';
 import queryString from 'query-string';
 
@@ -23,7 +25,10 @@ axiosClient.interceptors.response.use(
     return response;
   },
   error => {
-    throw error;
-  }
+    if (error.response.status === 401) {
+      store.dispatch(logout());
+    }
+    return Promise.reject(error.response || error.message);
+  },
 );
 export default axiosClient;

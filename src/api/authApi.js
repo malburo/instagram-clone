@@ -1,10 +1,9 @@
 import axiosClient from './axiosClient';
 
 const userApi = {
-  getMe: async () => {
+  getMe: () => {
     const url = 'auth/me';
-    const response = await axiosClient.get(url);
-    return response;
+    return axiosClient.get(url);
   },
   login: currentUser => {
     const url = 'auth/login';

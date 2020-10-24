@@ -1,5 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit';
 import { Carousel } from 'antd';
+import Avatar from 'components/Avatar';
 import { CommentIcon, LikeIcon, MessageIcon, SaveIcon } from 'components/Icon';
 import { comment, reaction } from 'features/Post/PostSlice';
 import PropTypes from 'prop-types';
@@ -10,10 +11,8 @@ import Comment from '../Comment';
 import CommentForm from '../CommentForm';
 import SettingPost from '../SettingPost';
 import styles from './style.module.scss';
-import Avatar from 'components/Avatar';
 
 PostCard.propTypes = {
-  isLiked: PropTypes.bool,
   likes: PropTypes.array,
   comments: PropTypes.array,
   profilePictureUrl: PropTypes.string.isRequired,
@@ -23,7 +22,6 @@ PostCard.propTypes = {
 PostCard.defaultProps = {
   reactions: [],
   comments: [],
-  isLiked: false,
 };
 function PostCard(props) {
   const {
@@ -35,23 +33,14 @@ function PostCard(props) {
     postId,
     caption,
   } = props;
-
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.user.current);
   const isLiked = reactions.find(item => item.userId === currentUser.id);
   const handleReaction = postId => {
     async function fetchData() {
       try {
-        let type = 'like';
-        if (isLiked) {
-          type = null;
-        }
-        const payload = {
-          postId,
-          type,
-        };
-        const reactionResult = await dispatch(reaction(payload));
-        unwrapResult(reactionResult);
+        const reactionResult = await dispatch(reaction({postId}));
+        unwrapResult(reactionResult)
       } catch (e) {
         console.log(e);
       }

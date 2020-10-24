@@ -1,15 +1,13 @@
 import axiosClient from './axiosClient';
 
 const accountApi = {
-  editProfile: async payload => {
+  editProfile: payload => {
     const url = 'account/edit';
-    const response = await axiosClient.post(url, payload);
-    return response;
+    return axiosClient.post(url, payload);
   },
-  changePassword: async payload => {
+  changePassword: payload => {
     const url = 'account/password/change';
-    const response = await axiosClient.post(url, payload);
-    return response;
+    return axiosClient.post(url, payload);
   },
 };
 export default accountApi;
